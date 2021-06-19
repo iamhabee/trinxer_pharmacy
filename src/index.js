@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 
+import 'antd/dist/antd.css';
 import './global.css'
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/styles/tailwind.css";
-import 'antd/dist/antd.css';
 // layouts
 import Admin from "layouts/Admin.js";
 import Auth from "layouts/Auth.js";
@@ -34,13 +34,13 @@ ReactDOM.render(
       <Switch>
         {/* add routes with layouts */}
         <Route path="/auth" component={Auth} />
-         <Route path="/admin" component={Admin} />
+        <Route path="/admin" component={Admin} />
         {/* add routes without layouts */}
         <Route path="/landing" exact component={Landing} />
         <Route path="/profile" exact component={Profile} />
         <Route path="/" exact component={Index} />
         {/* add redirect for first page */}
-        <Redirect from="*" to="/" />
+        <Redirect from="*" to="/auth" />
       </Switch>
     </Router>
   </Provider>,

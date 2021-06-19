@@ -1,12 +1,11 @@
 import actions from './actions'
 
 const initialState = {
+  services: [],
   loading: false,
-  profile:{},
-  stats:{}
 }
 
-export default function userReducer(state = initialState, action) {
+export default function serviceReducer(state = initialState, action) {
   switch (action.type) {
     case actions.SET_STATE:
       return { ...state, ...action.payload }

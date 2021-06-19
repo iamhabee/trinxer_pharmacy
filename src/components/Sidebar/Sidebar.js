@@ -7,11 +7,12 @@ import UserDropdown from "components/Dropdowns/UserDropdown.js";
 import { connect } from "react-redux";
 import { history } from "index";
 
-const mapStateToProps = ({user}) =>({
-  profile:user.profile
+const mapStateToProps = ({user, dispatch}) =>({
+  profile:user.profile,
+  dispatch
 })
 
-function Sidebar({profile}) {
+function Sidebar({profile, dispatch}) {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   const menuItems = [
     {
@@ -33,12 +34,36 @@ function Sidebar({profile}) {
       role:["super_admin", "admin"]
     },
     {
+      text: 'Roles',
+      url: '/admin/role',
+      icon: 'fas fa-user-tag',
+      role:["cooperative"]
+    },
+    {
+      text: 'Messages',
+      url: '/admin/message',
+      icon: 'fas fa-envelope-square',
+      role:["cooperative"]
+    },
+    {
+      text: 'Services',
+      url: '/admin/service',
+      icon: 'fas fa-code-branch',
+      role:["cooperative"]
+    },
+    {
       text: 'Profile',
       url: '/admin/profile',
       icon: 'fas fa-user',
       role:["super_admin", "admin"]
     },
-];
+  ];
+
+  const handleLogout =()=>{
+    dispatch({
+      type:"auth/LOGOUT"
+    })
+  }
   return (
     <>
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-blueGray-200 flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
@@ -141,6 +166,15 @@ function Sidebar({profile}) {
                   {menu.text}
                 </Link>
               </li>))}
+              <li>
+                <button
+                  className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={()=>handleLogout(true)}
+                >
+                  Logout
+                </button>
+              </li>
             </ul>
           </div>
         </div>

@@ -164,6 +164,22 @@ export async function currentUser(data) {
     .catch(err => console.log(err))
 }
 
+// update admin profile api
+export async function updateProfile(data) {
+  return apiClient
+    .put('/profile', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
 // all blogs api
 export async function allBlogs() {
   return apiClient
@@ -216,6 +232,134 @@ export async function updateBlog(data) {
 export async function publishBlog(data) {
   return apiClient
     .put(`/blogPost/${data.status}`, {postId: data.id})
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// get stats api
+export async function getStats() {
+  return apiClient
+    .get('/stat')
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// get all roles api
+export async function allRoles() {
+  return apiClient
+    .get('/role')
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// update role api
+export async function updateRole(data) {
+  return apiClient
+    .put('/role', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// update role api
+export async function createRole(data) {
+  return apiClient
+    .post('/role', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// get all services api
+export async function allServices() {
+  return apiClient
+    .get('/service')
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// update service api
+export async function updateService(data) {
+  return apiClient
+    .put('/service', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// update service api
+export async function createService(data) {
+  return apiClient
+    .post('/service', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// get all messages api
+export async function allMessages(payload) {
+  return apiClient
+    .get(`/message?limit=${payload.limit}&offset=${payload.offset}`)
     .then(response => {
       if (response) {
         const { data, status } = response

@@ -58,7 +58,7 @@ export default function CardStats({
 
 CardStats.defaultProps = {
   statSubtitle: "Traffic",
-  statTitle: "350,897",
+  statTitle: 0,
   statArrow: "up",
   statPercent: "3.48",
   statPercentColor: "text-emerald-500",
@@ -69,7 +69,7 @@ CardStats.defaultProps = {
 
 CardStats.propTypes = {
   statSubtitle: PropTypes.string,
-  statTitle: PropTypes.string,
+  statTitle: PropTypes.number,
   statArrow: PropTypes.oneOf(["up", "down"]),
   statPercent: PropTypes.string,
   // can be any of the text color utilities

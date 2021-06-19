@@ -17,6 +17,9 @@ import Tables from "views/admin/Tables.js";
 import AdminList from "views/admin/AdminList.js";
 import Blogs from "views/admin/Blogs.js";
 import Profile from "views/admin/Profile.js";
+import Roles from "views/admin/Roles";
+import Messages from "views/admin/Messages.js";
+import Services from "views/admin/Services";
 import { history } from "index";
 
 export default function Admin() {
@@ -36,6 +39,9 @@ export default function Admin() {
             <Route path="/admin/blog" exact component={Blogs} />
             <Route path="/admin/profile" exact component={Profile} />
             <Route path="/admin/setting" exact component={Settings} />
+            <Route path="/admin/role" exact component={Roles} />
+            <Route path="/admin/message" exact component={Messages} />
+            <Route path="/admin/service" exact component={Services} />
             <Route path="/admin/tables" exact component={Tables} />
             <Redirect from="/admin" to="/admin/admin-list" />
           </Switch>

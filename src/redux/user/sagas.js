@@ -1,10 +1,13 @@
 import { all, takeEvery, put, call } from 'redux-saga/effects'
 import * as jwts from 'services/jwt'
-import { history } from 'index'
+import { message } from 'antd'
+import { store as reduxStore  } from 'index'
 import actions from './actions'
 
 const jwt = {
     currentUser: jwts.currentUser,
+    getStats: jwts.getStats,
+    updateProfile: jwts.updateProfile
 }
 
 export function* CURRENT_USER() {
@@ -47,8 +50,69 @@ export function* CURRENT_USER() {
   
 }
 
+export function* GET_STATS() {
+  yield put({
+    type: 'user/SET_STATE',
+    payload: {
+      loading: true,
+    },
+  })
+  const success = yield call(jwt.getStats)
+  if (success.status) {
+    yield put({
+      type: 'user/SET_STATE',
+      payload: {
+        stats:success.data,
+        loading: false,
+      },
+    })
+
+  }
+  if (!success.status) {
+    yield put({
+      type: 'user/SET_STATE',
+      payload: {
+        loading: false,
+      },
+    })
+  }
+}
+
+export function* UPDATE_PROFILE({payload}) {
+  yield put({
+    type: 'user/SET_STATE',
+    payload: {
+      loading: true,
+    },
+  })
+  const success = yield call(jwt.updateProfile, payload)
+  if (success.status) {
+    localStorage.setItem("admin_profile", JSON.stringify(success.data))
+    yield reduxStore.dispatch({
+      type: 'user/CURRENT_USER'
+    })
+    message.success({
+      content: success.message,
+      duration: 5,
+      style: {
+        marginTop: '50vh',
+      },
+    })
+  }
+  if (!success.status) {
+    yield put({
+      type: 'user/SET_STATE',
+      payload: {
+        loading: false,
+      },
+    })
+  }
+}
+
 export default function* rootSaga() {
   yield all([
     takeEvery(actions.CURRENT_USER, CURRENT_USER),
+    takeEvery(actions.UPDATE_PROFILE, UPDATE_PROFILE),
+    takeEvery(actions.GET_STATS, GET_STATS),
   ])
 }

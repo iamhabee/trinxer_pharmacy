@@ -1,16 +1,17 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import { Input, Modal, Button, Form, Avatar, Skeleton, Result} from 'antd';
+import { Input, Modal, Button, Form, Avatar, Skeleton, Result, Select} from 'antd';
 import { ExclamationCircleOutlined, SmileOutlined } from '@ant-design/icons';
 // components
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 import { connect } from "react-redux";
 
-const mapStateToProps = ({dispatch, admin}) =>({
+const mapStateToProps = ({dispatch, admin, role}) =>({
   dispatch,
   data:admin.admins,
-  loading:admin.loading
+  loading:admin.loading,
+  roles:role.roles,
 })
 
 const layout = {
@@ -28,12 +29,13 @@ const tailLayout = {
   },
 };
 
-function AdminTable({ color, data, loading, dispatch }) {
+function AdminTable({ color, data, loading, dispatch, roles }) {
 
   const [showEdit, setShowEdit] = useState(false)
   const [showAdd, setShowAdd] = useState(false)
   const [form] = Form.useForm();
 	const {confirm} = Modal;
+  const {Option} = Select
   
   const handleEdit = (value) =>{
     setShowEdit(true)
@@ -42,7 +44,8 @@ function AdminTable({ color, data, loading, dispatch }) {
       firstName: value.firstName,
       lastName: value.lastName,
       middleName: value.middleName,
-      adminId: value.adminId
+      adminId: value.adminId,
+      roleId:value.roleId
     })
   }
 
@@ -171,6 +174,14 @@ function AdminTable({ color, data, loading, dispatch }) {
                       ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
+                >Role</th>
+                <th
+                  className={
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                    (color === "light"
+                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                  }
                 >
                   Status
                 </th>
@@ -191,17 +202,7 @@ function AdminTable({ color, data, loading, dispatch }) {
                       ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
-                >
-                  
-                </th>
-                {/* <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                  }
-                ></th> */}
+                ></th>
               </tr>
             </thead>
             <tbody>
@@ -221,13 +222,16 @@ function AdminTable({ color, data, loading, dispatch }) {
                     {datum.firstName} {datum.lastName}
                   </span>
                 </th>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
                   {datum.email}
                 </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
+                  {datum.Role.roleName}
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
                   <i className={`fas fa-circle text-${datum.AdminAuth.status === "PENDING"?"orange":datum.AdminAuth.status==="SUSPENDED"?"red":"blueGray"}-500 mr-2`}></i> {datum && datum.AdminAuth.status}
                 </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
                   <div className="flex">
                     {new Date(datum.createdAt).toDateString()}
                   </div>
@@ -269,6 +273,14 @@ function AdminTable({ color, data, loading, dispatch }) {
         onCancel={() => setShowEdit(false)}
       >
         <Form onFinish={onFinishEdit} form={form}>
+          <Form.Item name="roleId" label="Select Role">
+            <Select
+              placeholder="Select Role"
+              allowClear
+            >
+              {roles.map(role => <Option key={role.roleId} value={role.roleId}>{role.roleName}</Option>)}
+            </Select>
+          </Form.Item>
           <Form.Item name="email" label="E-mail">
             <Input /> 
           </Form.Item>
@@ -302,6 +314,14 @@ function AdminTable({ color, data, loading, dispatch }) {
         onCancel={() => setShowAdd(false)}
       >
         <Form onFinish={onFinishAdd} {...layout}>
+          <Form.Item name="roleId" label="Select Role">
+            <Select
+              placeholder="Select Role"
+              allowClear
+            >
+              {roles.map(role => <Option key={role.roleId} value={role.roleId}>{role.roleName}</Option>)}
+            </Select>
+          </Form.Item>
           <Form.Item name="email" label="E-mail">
             <Input /> 
           </Form.Item>

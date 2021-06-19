@@ -141,7 +141,7 @@ function BlogsPage({dispatch, blogs, loading}) {
 
   const IconText = ({ icon, text }) => (
     <Space>
-      {React.createElement(icon)}
+      {icon}
       {text}
     </Space>
   );
@@ -178,9 +178,9 @@ function BlogsPage({dispatch, blogs, loading}) {
                       key={item.blogPostId}
                       actions={[
                         <Button icon={<EditOutlined />} onClick={()=>handleShowEdit(item)} >Edit</Button>,
-                        <Button icon={<ShareAltOutlined />} onClick={()=>confirmActivateAction(item.blogPostId, item.status)} >Publish</Button>,
+                        <Button icon={<ShareAltOutlined />} onClick={()=>confirmActivateAction(item.blogPostId, item.status)} >{item.status === "PUBLISHED"?"Unpublish":"Publish"}</Button>,
                         <Button icon={<EyeOutlined />} onClick={()=>handleView(item)} >View</Button>,
-                        <IconText icon={MessageOutlined} text={item.Comments.length} key="list-vertical-message" />,
+                        <IconText icon={<MessageOutlined />} text={item.Comments.length} key="list-vertical-message" />,
                       ]}
                       extra={
                         <img
@@ -201,7 +201,7 @@ function BlogsPage({dispatch, blogs, loading}) {
                         Posted By: {item.Author.firstName} {item.Author.lastName}
                         &nbsp; &nbsp;on <span>{new Date(item.createdAt).toDateString()}</span>
                       </h5>
-                      <span className="font-bold">status: {item.status.toLowerCase()}</span>
+                      <span className="font-bold lowercase">status: {item.status}</span>
                     </List.Item>
                   )}
                 />
@@ -286,7 +286,7 @@ function BlogsPage({dispatch, blogs, loading}) {
                 </Upload>
                 <Form.Item>
                   <Button type="primary" htmlType="submit" loading={loading}>
-                    Create
+                    Update
                   </Button>
                 </Form.Item>
               </Form>

@@ -17,6 +17,9 @@ function AdminList({dispatch}) {
     dispatch({
       type:"user/CURRENT_USER"
     })
+    dispatch({
+      type:"role/ALL_ROLES"
+    })
   }, [])
   return (
     <>

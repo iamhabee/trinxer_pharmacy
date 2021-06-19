@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // components
 
 import CardStats from "components/Cards/CardStats.js";
+import { connect } from "react-redux";
 
-export default function HeaderStats() {
+const mapStateToProps = ({dispatch, user})=>({
+  dispatch,
+  stats:user.stats
+})
+function HeaderStats({stats, dispatch}) {
+  useEffect(() => {
+    dispatch({
+      type:"user/GET_STATS"
+    })
+  }, [])
   return (
     <>
       {/* Header */}
@@ -16,7 +26,7 @@ export default function HeaderStats() {
               <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
                 <CardStats
                   statSubtitle="Visitors"
-                  statTitle="350,897"
+                  statTitle={stats.visitors}
                   statArrow="up"
                   statPercent="3.48"
                   statPercentColor="text-emerald-500"
@@ -28,7 +38,7 @@ export default function HeaderStats() {
               <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
                 <CardStats
                   statSubtitle="Blog Posts"
-                  statTitle="2,356"
+                  statTitle={stats.post}
                   statArrow="down"
                   statPercent="3.48"
                   statPercentColor="text-red-500"
@@ -40,7 +50,7 @@ export default function HeaderStats() {
               <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
                 <CardStats
                   statSubtitle="Admin/Staffs"
-                  statTitle="924"
+                  statTitle={stats.admin}
                   statArrow="down"
                   statPercent="1.10"
                   statPercentColor="text-orange-500"
@@ -56,3 +66,5 @@ export default function HeaderStats() {
     </>
   );
 }
+
+export default connect(mapStateToProps)(HeaderStats)
