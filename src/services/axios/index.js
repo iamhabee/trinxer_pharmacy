@@ -3,7 +3,7 @@ import { history } from 'index'
 // import store from 'store'
 // import { notification } from 'antd'
 
-export const imageUrl = "https://pharma-app.herokuapp.com/images/blog/"
+export const imageUrl = "https://pharma-app.herokuapp.com/images/"
 
 export const numberFormat = (value) =>
   new Intl.NumberFormat("en-NG", {

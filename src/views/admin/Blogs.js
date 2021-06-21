@@ -187,7 +187,7 @@ function BlogsPage({dispatch, blogs, loading}) {
                           width={272}
                           style={{height:200}}
                           alt="logo"
-                          src={`${imageUrl}${item.imagePath}`}
+                          src={`${imageUrl}blog/${item.imagePath}`}
                         />
                       }
                     >
@@ -281,7 +281,7 @@ function BlogsPage({dispatch, blogs, loading}) {
                     onEditorStateChange={onEditorStateChange}
                   />
                 </Form.Item>
-                <Upload onChange={handleChange} customRequest={dummyRequest}>
+                <Upload onChange={handleChange} customRequest={dummyRequest} style={{marginBottom:10}}>
                   <Button icon={<InboxOutlined />}>Upload Blog Image</Button>
                 </Upload>
                 <Form.Item>

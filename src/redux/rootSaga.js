@@ -6,6 +6,7 @@ import Blog from './blog/sagas';
 import Role from './role/sagas';
 import Service from './services/sagas';
 import Message from './message/sagas';
+import Setting from './setting/sagas';
 
 export default function* rootSaga() {
     yield all([
@@ -15,6 +16,7 @@ export default function* rootSaga() {
         Blog(),
         Role(),
         Service(),
-        Message()
+        Message(),
+        Setting()
     ]);
 }

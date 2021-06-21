@@ -12,6 +12,15 @@ function Settings({dispatch}) {
     dispatch({
       type:"user/CURRENT_USER"
     })
+    dispatch({
+      type:"setting/GET_ABOUT"
+    })
+    dispatch({
+      type:"setting/GET_CONTACT"
+    })
+    dispatch({
+      type:"setting/GET_HEADER"
+    })
   }, [])
   return (
     <>

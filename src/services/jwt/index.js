@@ -371,3 +371,115 @@ export async function allMessages(payload) {
     })
     .catch(err => console.log(err))
 }
+
+// search all messages api
+export async function searchMessages(term) {
+  return apiClient
+    .get(`/message/find?searchTerm=${term}`)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// get Contact api
+export async function getContact() {
+  return apiClient
+    .get('/setting/contact')
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// update contact api
+export async function updateContact(data) {
+  return apiClient
+    .put('/setting/contact', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// get Header api
+export async function getHeader() {
+  return apiClient
+    .get('/setting/header')
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// update Header api
+export async function updateHeader(data) {
+  return apiClient
+    .put('/setting/header', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// get About api
+export async function getAbout() {
+  return apiClient
+    .get('/setting/about')
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// update About api
+export async function updateAbout(data) {
+  return apiClient
+    .put('/setting/about', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}

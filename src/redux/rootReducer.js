@@ -7,6 +7,7 @@ import blog from './blog/reducers';
 import role from './role/reducers';
 import service from './services/reducers';
 import message from './message/reducers';
+import setting from './setting/reducers';
 
 export default combineReducers({
     auth,
@@ -15,5 +16,6 @@ export default combineReducers({
     blog,
     role,
     service,
-    message
+    message,
+    setting
 });

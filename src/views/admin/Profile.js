@@ -58,7 +58,7 @@ function Profile({dispatch, profile, loading}) {
                   <div className="relative">
                     <img
                       alt="..."
-                      src={require("assets/img/team-2-800x800.jpg").default}
+                      src={require("assets/img/team-3-800x800.jpg").default}
                       className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
                     />
                   </div>
@@ -77,7 +77,7 @@ function Profile({dispatch, profile, loading}) {
                 </div>
                 <div className="w-full lg:w-4/12 px-4 lg:order-1">
                   <div className="flex justify-center py-4 lg:pt-4 pt-8">
-                    <div className="mr-4 p-3 text-center">
+                    {/* <div className="mr-4 p-3 text-center">
                       <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
                         {profile.BlogPosts && profile.BlogPosts.length}
                       </span>
@@ -92,7 +92,7 @@ function Profile({dispatch, profile, loading}) {
                       <span className="text-sm text-blueGray-400">
                         Comments
                       </span>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
