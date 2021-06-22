@@ -179,13 +179,13 @@ function SettingsCard({dispatch, about, header, contact, loading}) {
                 form={form} {...layout}
                 initialValues={{about:about.aboutUs, mission:about.mission, vision:about.vision, aboutImagePath:about.aboutImagePath, id:"1"}}>
                 <Form.Item name="about" label="About Us">
-                  <Input /> 
+                  <Input.TextArea /> 
                 </Form.Item>
                 <Form.Item name="mission" label="Our Mission">
-                  <Input />
+                  <Input.TextArea />
                 </Form.Item>
                 <Form.Item name="vision" label="Our Vision">
-                  <Input />
+                  <Input.TextArea />
                 </Form.Item>
                 <Form.Item name="aboutImagePath" hidden>
                   <Input />

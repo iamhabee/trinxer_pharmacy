@@ -42,6 +42,7 @@ function BlogsPage({dispatch, blogs, loading}) {
     if(file !== ""){
         const fd = new FormData();
         fd.append('title', val.title)
+        fd.append('description', val.description)
         fd.append('content', getHtml(editor))
         fd.append('image', file);
         dispatch({
@@ -59,6 +60,7 @@ function BlogsPage({dispatch, blogs, loading}) {
     if(file !== ""){
         const fd = new FormData();
         fd.append('title', val.title)
+        fd.append('description', val.description)
         fd.append('content', getHtml(editor))
         fd.append('image', file);
         fd.append('imagePath', val.imagePath);
@@ -105,6 +107,7 @@ function BlogsPage({dispatch, blogs, loading}) {
       title: value.postTitle,
       blogPostId:value.blogPostId,
       imagePath:value.imagePath,
+      description:value.description,
     })
   }
 
@@ -194,9 +197,9 @@ function BlogsPage({dispatch, blogs, loading}) {
                       <List.Item.Meta
                         avatar={<Avatar className="uppercase" style={{ backgroundColor: '#f56a00'}}>{item.Author.firstName.slice(0,1)}</Avatar>}
                         title={<a href={item.href}>{item.postTitle}</a>}
-                        description={<h3 dangerouslySetInnerHTML={{__html: item.postContent.slice(0, 15)}}/>}
+                        description={<h3>{item.description.slice(0, 100)}</h3>}
                       />
-                      <div dangerouslySetInnerHTML={{__html: item.postContent}} />
+                      {/* <div dangerouslySetInnerHTML={{__html: item.postContent}} /> */}
                       <h5 className="font-bold text-orange-500">
                         Posted By: {item.Author.firstName} {item.Author.lastName}
                         &nbsp; &nbsp;on <span>{new Date(item.createdAt).toDateString()}</span>
@@ -224,6 +227,9 @@ function BlogsPage({dispatch, blogs, loading}) {
                 <Form.Item label="Blog Title" name="title" rules={[{ required: true }]}>
                   <Input />
                 </Form.Item>
+                <Form.Item label="Blog Description" name="description" rules={[{ required: true }]}>
+                  <Input.TextArea  />
+                </Form.Item>
                 <Form.Item label="Blog Content" name="content" rules={[{ required: true }]}>
                   <Editor
                     editorState={editor}
@@ -235,9 +241,11 @@ function BlogsPage({dispatch, blogs, loading}) {
                     onEditorStateChange={onEditorStateChange}
                   />
                 </Form.Item>
-                <Upload onChange={handleChange} customRequest={dummyRequest}>
-                  <Button icon={<InboxOutlined />}>Upload Blog Image</Button>
-                </Upload>
+                <Form.Item label="Upload">
+                  <Upload onChange={handleChange} customRequest={dummyRequest}>
+                    <Button icon={<InboxOutlined />}>Upload Blog Image</Button>
+                  </Upload>
+                </Form.Item>
                 <Form.Item>
                   <Button type="primary" htmlType="submit" loading={loading}>
                     Create
@@ -268,6 +276,9 @@ function BlogsPage({dispatch, blogs, loading}) {
                   <Input />
                 </Form.Item>
                 <Form.Item label="Blog Title" name="title" rules={[{ required: true }]}>
+                  <Input />
+                </Form.Item>
+                <Form.Item label="Blog Description" name="description" rules={[{ required: true }]}>
                   <Input />
                 </Form.Item>
                 <Form.Item label="Blog Content" name="content">

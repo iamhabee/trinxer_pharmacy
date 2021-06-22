@@ -112,7 +112,7 @@ function ServicesPage({dispatch, loading, services}) {
                   <Input />
                 </Form.Item>
                 <Form.Item label="Service Description" name="description" rules={[{ required: true }]}>
-                  <Input />
+                  <Input.TextArea  />
                 </Form.Item>
                 <Form.Item {...tailLayout}>
                   <Button type="primary" htmlType="submit" loading={loading}>
