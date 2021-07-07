@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { List, Avatar, Space, Card, Form, Upload, Button, Input, Drawer, Modal } from 'antd';
-import { InboxOutlined, MessageOutlined, EditOutlined, ShareAltOutlined, ExclamationCircleOutlined, EyeOutlined} from '@ant-design/icons'
+import { InboxOutlined, MessageOutlined, EditOutlined, ShareAltOutlined, ExclamationCircleOutlined, EyeOutlined, DeleteOutlined} from '@ant-design/icons'
 
 // import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import { connect } from "react-redux";
@@ -142,6 +142,27 @@ function BlogsPage({dispatch, blogs, loading}) {
     });
   }
 
+  const confirmDelete = (id) => {
+		confirm({
+		  title: `Are you sure you want to delete this Post?`,
+		  icon: <ExclamationCircleOutlined />,
+		  content: 'Click Ok to continue',
+		  onOk() {
+			handleDelete(id)
+		  },
+		  onCancel() {
+			console.log('Cancel');
+		  },
+		});
+	}
+
+  const handleDelete = (id)=>{
+    dispatch({
+      type:"blog/DELETE_BLOG",
+      payload:id
+    })
+  }
+
   const IconText = ({ icon, text }) => (
     <Space>
       {icon}
@@ -183,6 +204,7 @@ function BlogsPage({dispatch, blogs, loading}) {
                         <Button icon={<EditOutlined />} onClick={()=>handleShowEdit(item)} >Edit</Button>,
                         <Button icon={<ShareAltOutlined />} onClick={()=>confirmActivateAction(item.blogPostId, item.status)} >{item.status === "PUBLISHED"?"Unpublish":"Publish"}</Button>,
                         <Button icon={<EyeOutlined />} onClick={()=>handleView(item)} >View</Button>,
+                        <Button icon={<DeleteOutlined />} onClick={()=>confirmDelete(item.blogPostId)} >Delete</Button>,
                         <IconText icon={<MessageOutlined />} text={item.Comments.length} key="list-vertical-message" />,
                       ]}
                       extra={

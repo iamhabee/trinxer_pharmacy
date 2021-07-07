@@ -8,6 +8,7 @@ import role from './role/reducers';
 import service from './services/reducers';
 import message from './message/reducers';
 import setting from './setting/reducers';
+import site from './site/reducers';
 
 export default combineReducers({
     auth,
@@ -17,5 +18,6 @@ export default combineReducers({
     role,
     service,
     message,
-    setting
+    setting,
+    site
 });

@@ -1,11 +1,11 @@
 import { history } from 'index'
 import apiClient from '../axios'
-// import store from 'store'
+
 
 // login api
 export async function login(email, password) {
   return apiClient
-    .post('/auth/login', {
+    .post('auth/login', {
       email,
       password,
     })
@@ -232,6 +232,22 @@ export async function updateBlog(data) {
 export async function publishBlog(data) {
   return apiClient
     .put(`/blogPost/${data.status}`, {postId: data.id})
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// activate admin api
+export async function deleteBlog(id) {
+  return apiClient
+    .delete(`/blogPost/${id}`)
     .then(response => {
       if (response) {
         const { data, status } = response

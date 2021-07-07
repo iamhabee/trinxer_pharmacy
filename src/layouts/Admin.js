@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, Redirect, Router } from "react-router-dom";
 
 // components
@@ -23,6 +23,13 @@ import Services from "views/admin/Services";
 import { history } from "index";
 
 export default function Admin() {
+  useEffect(() => {
+    
+  }, [])
+  const data = JSON.parse(localStorage.getItem('trinxer_admin'))
+  if (!data){
+    return <Redirect to="/auth/login"/>
+  }
   return (
     <>
       <Sidebar />

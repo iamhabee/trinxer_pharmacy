@@ -1,12 +1,55 @@
 /*eslint-disable*/
 import React from "react";
 import { Link } from "react-router-dom";
+import { history } from "index";
 // components
 
-import IndexDropdown from "components/Dropdowns/IndexDropdown.js";
+// import IndexDropdown from "components/Dropdowns/IndexDropdown.js";
 
 export default function Navbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+  const pathname = history.location.pathname
+  const menuItems = [
+    {
+      title: 'About Us',
+      url: '/about',
+      icon: 'fas fa-users',
+      active: pathname === "/about/who-we-are" || 
+              pathname === "/about/purpose-and-value" ||
+              pathname === "/about/board-of-director" ||
+              pathname === "/about/executive-team" ||
+              pathname === "/about/offices" ||
+              pathname === "/about/social-responsibility" ||
+              pathname === "/about/our-distributors"
+    },
+    {
+      title: 'Blogs',
+      url: '/blogs',
+      icon: 'fas fa-globe',
+      active: pathname === "/blogs"
+    },
+    {
+      title: 'Products',
+      url: '/products',
+      icon: 'fas fa-plus-square',
+      active:
+            pathname === "/products/food-suppliment" || 
+            pathname === "/products/medical-devices" || 
+            pathname === "/products/cosmetics"
+    },
+    {
+      title: 'Private Labelling',
+      url: '/private-labelling',
+      icon: 'fas fa-lock',
+      active: pathname === "/private-labelling"
+    },
+    {
+      title: 'Contact',
+      url: '/contact',
+      icon: 'fas fa-info-circle',
+      active: pathname === "/contact"
+    },
+  ];
   return (
     <>
       <nav className="top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-white shadow">
@@ -33,64 +76,27 @@ export default function Navbar(props) {
             }
             id="example-navbar-warning"
           >
-            {/* <ul className="flex flex-col lg:flex-row list-none mr-auto">
-              <li className="flex items-center">
-                <a
-                  className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="https://www.creative-tim.com/learning-lab/tailwind/react/overview/notus?ref=nr-index-navbar"
-                >
-                  <i className="text-blueGray-400 far fa-file-alt text-lg leading-lg mr-2" />{" "}
-                  Docs
-                </a>
-              </li>
-            </ul> */}
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-              {/* <li className="flex items-center">
-                <IndexDropdown />
-              </li>
-              <li className="flex items-center">
-                <a
-                  className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdemos.creative-tim.com%2Fnotus-react%2F%23%2F"
-                  target="_blank"
+              {menuItems.map( (menu, index) =>(
+              <li className="flex items-center" key={index}>
+                <Link
+                  className={
+                    `items-center text-xs uppercase font-bold px-3 py-4 lg:py-2 flex
+                      ${menu.active
+                      ? "text-lightBlue-500 hover:text-lightBlue-600 text-lg"
+                      : "text-blueGray-700 hover:text-blueGray-500"}`
+                  }
+                  to={menu.url}
                 >
-                  <i className="text-blueGray-400 fab fa-facebook text-lg leading-lg " />
-                  <span className="lg:hidden inline-block ml-2">Share</span>
-                </a>
-              </li>
-
-              <li className="flex items-center">
-                <a
-                  className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdemos.creative-tim.com%2Fnotus-react%2F%23%2F&text=Start%20your%20development%20with%20a%20Free%20Tailwind%20CSS%20and%20React%20UI%20Kit%20and%20Admin.%20Let%20Notus%20React%20amaze%20you%20with%20its%20cool%20features%20and%20build%20tools%20and%20get%20your%20project%20to%20a%20whole%20new%20level.%20"
-                  target="_blank"
-                >
-                  <i className="text-blueGray-400 fab fa-twitter text-lg leading-lg " />
-                  <span className="lg:hidden inline-block ml-2">Tweet</span>
-                </a>
-              </li>
-
-              <li className="flex items-center">
-                <a
-                  className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="https://github.com/creativetimofficial/notus-react?ref=nr-index-navbar"
-                  target="_blank"
-                >
-                  <i className="text-blueGray-400 fab fa-github text-lg leading-lg " />
-                  <span className="lg:hidden inline-block ml-2">Star</span>
-                </a>
-              </li> */}
-
-              <li className="flex items-center">
-                <Link to="/auth/login">
-                  <button
-                    className="bg-white text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    <i className="fas fa-arrow-alt-circle-down"></i> Login
-                  </button>
+                  <i className={
+                      `text-lg leading-lg
+                      ${menu.active
+                        ? "opacity-75"
+                        : "text-blueGray-400"} ${menu.icon}`
+                    }  />
+                  <span className="inline-block ml-2">{menu.title}</span>
                 </Link>
-              </li>
+              </li>))}
             </ul>
           </div>
         </div>

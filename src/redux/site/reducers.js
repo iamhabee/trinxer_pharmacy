@@ -1,15 +1,16 @@
 import actions from './actions'
 
 const initialState = {
+  about: {},
+  contact: {},
+  team: [],
+  services: [],
   loading: false,
-  blogs:[],
-  public_blogs:[],
-  single_blog:{},
-  recent_blogs:[],
-  replyLoading:false
+  messageLoading:false,
+  title:"About Us"
 }
 
-export default function blogReducer(state = initialState, action) {
+export default function siteReducer(state = initialState, action) {
   switch (action.type) {
     case actions.SET_STATE:
       return { ...state, ...action.payload }
