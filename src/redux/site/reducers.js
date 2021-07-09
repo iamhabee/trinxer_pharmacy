@@ -7,7 +7,12 @@ const initialState = {
   services: [],
   loading: false,
   messageLoading:false,
-  title:"About Us"
+  title:"About Us",
+  products:[],
+  categoriesProduct:[],
+  categoryName:"",
+  categoryDescription:"",
+  categories:[]
 }
 
 export default function siteReducer(state = initialState, action) {

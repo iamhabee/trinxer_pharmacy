@@ -6,29 +6,39 @@ import { connect } from "react-redux";
 import { history } from "index";
 
 const mapStateToProps = ({site, dispatch}) =>({
-  about:site.about,
+  products:site.products,
+  categories:site.categories,
+  loading:site.loading,
   dispatch
 })
 
-function ProductSidebar({about}) {
+function ProductSidebar({categories, loading}) {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
-  const menuItems = [
-    {
-      text: 'Food Suppliment',
-      url: '/products/food-suppliment',
-      icon: 'fas fa-user-shield'
-    },
-    {
-      text: 'Medical Devices',
-      url: '/products/medical-devices',
-      icon: 'fas fa-tools'
-    },
-    {
-      text: 'Cosmetics',
-      url: '/products/cosmetics',
-      icon: 'fas fa-table'
-    },
-  ];
+
+  const menuItems = [];
+
+  categories.forEach(element => {
+    menuItems.push(
+      {
+        text: element.name,
+        url: `/products/parent/${element.name}/${element.categoryId}`,
+        icon: 'fas fa-user-shield',
+        catType:"parent"
+      },
+    )
+    if(element.SubCategories){
+      element.SubCategories.forEach(sub =>{
+        menuItems.push(
+          {
+            text: sub.name,
+            url: `/products/sub/${sub.name}/${sub.categoryId}`,
+            icon: 'fas fa-user-shield',
+            catType:"sub"
+          },
+        )
+      })
+    }
+  });
 
   return (
     <>
@@ -73,29 +83,38 @@ function ProductSidebar({about}) {
               </div>
             </div>
 
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              {menuItems.map((menu, index) =>(
-              <li key={index} className="items-center">
-                <Link
-                  className={
-                    `py-3 font-bold block 
-                      ${history.location.pathname === menu.url
-                      ? "text-lightBlue-500 hover:text-lightBlue-600 text-lg"
-                      : "text-blueGray-700 hover:text-blueGray-500"}`
-                  }
-                  to={menu.url}
-                >
-                  <i
-                    className={
-                      `mr-2 text-xl
-                      ${history.location.pathname === menu.url
-                        ? "opacity-75"
-                        : "text-blueGray-300"} ${menu.icon}`
-                    }
-                  ></i>{" "}
-                  {menu.text}
-                </Link>
-              </li>))}
+            <ul className="md:flex-col md:min-w-full flex flex-col list-circle">
+              {menuItems.map((menu, index) =>{
+                if(menu.catType === "sub"){
+                  return(
+                      <li key={index} className="items-center" style={{marginLeft:35}}>
+                        <a
+                          className={
+                            `py-3 font-bold block 
+                              ${history.location.pathname === menu.url
+                              ? "text-lightBlue-500 hover:text-lightBlue-600 text-sm"
+                              : "text-blueGray-700 hover:text-blueGray-500"}`
+                          }
+                          href={menu.url}
+                        >
+                          {menu.text}
+                        </a>
+                      </li>)
+                }else{
+                  return(
+                    <li key={index} className="items-center">
+                      <a
+                        className={
+                          `py-3 font-bold block 
+                            ${history.location.pathname === menu.url
+                            ? "text-lightBlue-500 hover:text-lightBlue-600 text-lg"
+                            : "text-blueGray-700 hover:text-blueGray-500"}`
+                        }
+                        href={menu.url}
+                      >
+                        {menu.text}
+                      </a>
+                    </li>)}})}
             </ul>
           </div>
         </div>

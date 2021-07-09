@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 const ProductHeader = () => {
   const data = useSelector(state => state.site)
-  const {about, title} = data
+  const {categoryDescription, title} = data
     return (
         <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
           <div
@@ -26,7 +26,7 @@ const ProductHeader = () => {
                     {title}.
                   </h1>
                   <p className="mt-4 text-lg text-blueGray-200">
-                    {about.headerText}
+                    {categoryDescription}
                   </p>
                 </div>
               </div>

@@ -129,3 +129,36 @@ export const sendReply = async(payload) =>{
       console.log(err);
     }
 }
+
+export const fetchProducts = async() =>{
+  try {
+      let response = await fetch(`${siteURL}product`);
+      let data = await response.json();
+      return data
+    } catch(err) {
+      // catches errors both in fetch and response.json
+      console.log(err);
+    }
+}
+
+export const fetchCatProduct = async(id) =>{
+  try {
+      let response = await fetch(`${siteURL}product/category/${id}`);
+      let data = await response.json();
+      return data
+    } catch(err) {
+      // catches errors both in fetch and response.json
+      console.log(err);
+    }
+}
+
+export const fetchCategories = async() =>{
+  try {
+      let response = await fetch(`${siteURL}product/category`);
+      let data = await response.json();
+      return data
+    } catch(err) {
+      // catches errors both in fetch and response.json
+      console.log(err);
+    }
+}

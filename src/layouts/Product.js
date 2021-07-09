@@ -1,21 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, Redirect, Router } from "react-router-dom";
 
 // components
-
 import IndexNavbar from "components/Navbars/IndexNavbar";
-// import Sidebar from "components/Sidebar/Sidebar.js";
 import ProductHeader from "components/Headers/ProductHeader";
 import ProductSidebar from "components/Sidebar/ProductSidebar";
 import Footer from "components/Footers/Footer";
 
 // views
 import { history } from "index";
-import MedicalDevice from "views/products/MedicalDevice";
-import FoodSuppliment from "views/products/FoodSuppliment";
-import Cosmetics from "views/products/Cosmetics";
+import Category from "views/products/Category";
+import ProductsCategory from "views/products/Products";
+import { useDispatch } from "react-redux";
 
-export default function Admin() {
+export default function Product() {
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch({
+      type:"site/CATEGORIES",
+    })
+  }, [])
   return (
     <>
       <IndexNavbar transparent />
@@ -31,10 +36,10 @@ export default function Admin() {
             <div className="w-full md:w-9/12 lg:w-9/12 px-4">
               <Router history={history}>
                 <Switch>
-                  <Route path="/products/food-suppliment" exact component={FoodSuppliment} />
-                  <Route path="/products/medical-devices" exact component={MedicalDevice} />
-                  <Route path="/products/cosmetics" exact component={Cosmetics} />
-                  <Redirect from="/products" to="/products/food-suppliment" />
+                  <Route path="/products/category" exact component={ProductsCategory} />
+                  <Route path="/products/:type/:name/:id" exact component={Category} />
+                  {/* <Route path="/products/cosmetics" exact component={Cosmetics} /> */}
+                  <Redirect from="/products" to="/products/category" />
                 </Switch>
               </Router>
             </div>

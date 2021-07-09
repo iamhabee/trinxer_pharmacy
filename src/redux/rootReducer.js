@@ -9,6 +9,8 @@ import service from './services/reducers';
 import message from './message/reducers';
 import setting from './setting/reducers';
 import site from './site/reducers';
+import category from './category/reducers';
+import product from './product/reducers';
 
 export default combineReducers({
     auth,
@@ -19,5 +21,7 @@ export default combineReducers({
     service,
     message,
     setting,
-    site
+    site,
+    category,
+    product
 });

@@ -181,10 +181,10 @@ function SettingsCard({dispatch, about, header, contact, loading}) {
                 <Form.Item name="about" label="About Us">
                   <Input.TextArea /> 
                 </Form.Item>
-                <Form.Item name="mission" label="Our Mission">
+                <Form.Item name="mission" label="Our Value">
                   <Input.TextArea />
                 </Form.Item>
-                <Form.Item name="vision" label="Our Vision">
+                <Form.Item name="vision" label="Our Purpose">
                   <Input.TextArea />
                 </Form.Item>
                 <Form.Item name="aboutImagePath" hidden>

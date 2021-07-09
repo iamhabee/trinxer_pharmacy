@@ -28,8 +28,11 @@ export default function ExecutiveTeam() {
                 <div className="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
                   <i className="fas fa-user-friends text-xl"></i>
                 </div>
+                <h3 className="text-3xl mb-2 font-semibold leading-normal">
+                  Meet The Expert Teams
+                </h3>
                 <h3 className="text-sm mb-2 font-semibold leading-normal">
-                  Our Senior Management team brings vast experience and skills into different parts of our company. Guided by CEDEM AG’s purpose and values, the team leads our operation to meet people’s healthcare needs in MENA and emerging markets of China and Vietnam.
+                  Our Senior Management team brings vast experience and skills into different parts of our company.
                 </h3>
                 <Card style={{marginTop: 16 }} loading={loading}>
                   <List

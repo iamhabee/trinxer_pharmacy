@@ -144,7 +144,7 @@ export default function BlogDetails() {
                       </p>
                       <p>Post date: {new Date(blog.createdAt).toDateString()} </p>
                     </blockquote>
-                    <Link to={`blog-details/${blog.blogPostId}`} ><Button type="ghost" >More</Button></Link>
+                    <Link to={`/blog-details/${blog.blogPostId}`} className="mb-5" ><Button type="ghost" >More</Button></Link>
                   </div>
                 </div>))}
               </div>
@@ -172,9 +172,9 @@ export default function BlogDetails() {
               )}
             />
             <div className="mx-auto px-4 pt-20" style={{width:"50%"}}>
-              <p className="leading-relaxed mt-1 mb-4 text-blueGray-500">
+              <h3 className="leading-relaxed text-xl mt-1 mb-4 text-blueGray-500">
                 Fill the form below to reply, all feedback are welcome
-              </p>
+              </h3>
               <form onSubmit={submitForm}>
                 <div className="relative w-full mb-3 mt-8">
                   <label

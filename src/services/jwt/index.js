@@ -308,10 +308,122 @@ export async function updateRole(data) {
     .catch(err => console.log(err))
 }
 
-// update role api
+// create role api
 export async function createRole(data) {
   return apiClient
     .post('/role', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// get all categories api
+export async function allCategories() {
+  return apiClient
+    .get('/product/category')
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// get all categories api
+export async function allParentCategories() {
+  return apiClient
+    .get('/product/category/parent')
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// update category api
+export async function updateCategory(data) {
+  return apiClient
+    .put('/product/category', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// create category api
+export async function createCategory(data) {
+  return apiClient
+    .post('/product/category', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// get all product api
+export async function allProducts() {
+  return apiClient
+    .get('/product')
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// update product api
+export async function updateProduct(data) {
+  return apiClient
+    .put('/product', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// create product api
+export async function createProduct(data) {
+  return apiClient
+    .post('/product', data)
     .then(response => {
       if (response) {
         const { data, status } = response

@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function PurposeAndValue() {
 
   const dispatch = useDispatch()
+  const data = useSelector(state => state.site)
+  const {about} = data
   useEffect(() => {
     dispatch({
       type:"site/ABOUT"
@@ -25,20 +27,16 @@ export default function PurposeAndValue() {
                   <i className="fas fa-tools text-xl"></i>
                 </div>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                  Our Purpose
+                 Our Purpose
                 </h3>
-                <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
-                  Furnishing people’s needs of essential healthy sources of products to improve their well-being and increase life expectancy.
+                <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-600">
+                  {about.vision}
                 </p>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
                   Our Value
                 </h3>
                 <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-600">
-                  Passion: The three basic musts: heart, mind, and spirit are our driving force.
-                  Innovation: Our thirst for advanced and ethical solutions to elevating wellness is continuous.
-                  Quality: Our dedication is to deliver only the best to people who value their wellness.
-                  Integrity: We honor life.
-                  Giving back: Our commitment to share wellness is by giving back.
+                  {about.mission}
                 </p>
               </div>
             </div>

@@ -19,43 +19,55 @@ function Sidebar({profile, dispatch}) {
       text: 'All Admin',
       url: '/admin/admin-list',
       icon: 'fas fa-user-shield',
-      role:["cooperative", "super_admin", "admin" ]
+      // role:["cooperative", "super_admin", "admin" ]
     },
     {
       text: 'Settings',
       url: '/admin/setting',
       icon: 'fas fa-tools',
-      role:["cooperative"]
+      // role:["cooperative"]
     },
     {
       text: 'Blogs',
       url: '/admin/blog',
       icon: 'fas fa-table',
-      role:["super_admin", "admin"]
+      // role:["super_admin", "admin"]
     },
     {
       text: 'Roles',
       url: '/admin/role',
       icon: 'fas fa-user-tag',
-      role:["cooperative"]
+      // role:["cooperative"]
+    },
+    {
+      text: 'Product Categories',
+      url: '/admin/category',
+      icon: 'fas fa-user-tag',
+      // role:["cooperative"]
+    },
+    {
+      text: 'Products',
+      url: '/admin/product',
+      icon: 'fas fa-cart-arrow-down',
+      // role:["cooperative"]
     },
     {
       text: 'Messages',
       url: '/admin/message',
       icon: 'fas fa-envelope-square',
-      role:["cooperative"]
+      // role:["cooperative"]
     },
     {
       text: 'Services',
       url: '/admin/service',
       icon: 'fas fa-code-branch',
-      role:["cooperative"]
+      // role:["cooperative"]
     },
     {
       text: 'Profile',
       url: '/admin/profile',
       icon: 'fas fa-user',
-      role:["super_admin", "admin"]
+      // role:["super_admin", "admin"]
     },
   ];
 

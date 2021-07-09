@@ -13,12 +13,17 @@ import { imageUrl } from "services/axios";
 export default function Blogs() {
   const dispatch = useDispatch()
   const data = useSelector(state => state.blog)
+  const sites = useSelector(state => state.site)
+  const {about} = sites
   const {public_blogs, loading} = data
 
   useEffect(() => {
     dispatch({
       type:"blog/PUBLIC_BLOGS",
       payload:{offset:0, limit:10}
+    })
+    dispatch({
+      type:"site/ABOUT"
     })
   }, [])
   return (
@@ -30,7 +35,7 @@ export default function Blogs() {
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
               backgroundImage:
-                "url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')",
+              `url(${imageUrl}settings/${about.headerImagePath})`,
             }}
           >
             <span
@@ -46,9 +51,7 @@ export default function Blogs() {
                     Welcome To Trinxer News Posts.
                   </h1>
                   <p className="mt-4 text-lg text-blueGray-200">
-                    This is a simple example of a Landing Page you can build
-                    using Notus React. It features multiple CSS components based
-                    on the Tailwind CSS design system.
+                    {about.headerText}
                   </p>
                 </div>
               </div>
@@ -82,40 +85,44 @@ export default function Blogs() {
               {!loading && public_blogs.length === 0 ?
               <Result
                 icon={<SmileOutlined />}
-                title="Ooops there are currently no admin, click button below to create a new admin"
+                title="Ooops there are currently no blogs "
                 // extra={<Button type="primary" >Create Admin</Button>}
               />:
               public_blogs.map( (blog, index) =>(
-              <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center" key={index}>
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg bg-lightBlue-500">
-                  <img
-                    alt="..."
-                    src={`${imageUrl}blog/${blog.imagePath}`}
-                    className="w-full align-middle rounded-t-lg"
-                  />
-                  <blockquote className="relative p-8 mb-4">
-                    <svg
-                      preserveAspectRatio="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 583 95"
-                      className="absolute left-0 w-full block h-95-px -top-94-px"
-                    >
-                      <polygon
-                        points="-30,95 583,95 583,65"
-                        className="text-lightBlue-500 fill-current"
-                      ></polygon>
-                    </svg>
-                    <h4 className="text-xl font-bold text-white">
-                      {blog.postTitle}
-                    </h4>
-                    <p className="text-md font-light mt-2 text-white">
-                      {blog.description}
-                    </p>
-                    <p>Post date: {new Date(blog.createdAt).toDateString()} </p>
-                  </blockquote>
-                  <Link to={`blog-details/${blog.blogPostId}`} ><Button type="primary" >More</Button></Link>
+                <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center" key={index}>
+                  <Link to={`blog-details/${blog.blogPostId}`} >
+                    <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg bg-lightBlue-500">
+                      <img
+                        alt="..."
+                        src={`${imageUrl}blog/${blog.imagePath}`}
+                        className="w-full align-middle rounded-t-lg"
+                        style={{height:200}}
+                      />
+                      <blockquote className="relative p-8 mb-4">
+                        <svg
+                          preserveAspectRatio="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 583 95"
+                          className="absolute left-0 w-full block h-95-px -top-94-px"
+                        >
+                          <polygon
+                            points="-30,95 583,95 583,65"
+                            className="text-lightBlue-500 fill-current"
+                          ></polygon>
+                        </svg>
+                        <h4 className="text-xl font-bold text-white">
+                          {blog.postTitle}
+                        </h4>
+                        <p className="text-md font-light mt-2 text-white">
+                          {blog.description}
+                        </p>
+                        <p className="text-white mt-2">Post date: {new Date(blog.createdAt).toDateString()} </p>
+                      </blockquote>
+                      <Link to={`blog-details/${blog.blogPostId}`} className="mb-5" ><Button type="ghost" >More</Button></Link>
+                    </div>
+                  </Link>
                 </div>
-              </div>))}
+                ))}
             </div>
           </div>
         </section>

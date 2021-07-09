@@ -7,7 +7,10 @@ const jwt = {
     fetchSetting: sites.fetchSetting,
     fetchTeam: sites.fetchTeam,
     sendMessage: sites.sendMessage,
-    fetchService: sites.fetchService
+    fetchService: sites.fetchService,
+    fetchProducts: sites.fetchProducts,
+    fetchCatProduct: sites.fetchCatProduct,
+    fetchCategories: sites.fetchCategories,
 }
 
 export function* ABOUT() {
@@ -25,6 +28,95 @@ export function* ABOUT() {
       payload: {
         loading: false,
         about:success.data[0]
+      },
+    })
+  }
+  if (!success || !success.status) {
+    yield put({
+      type: 'site/SET_STATE',
+      payload: {
+        loading: false,
+      },
+    })
+  }
+}
+
+export function* PRODUCTS() {
+  yield put({
+    type: 'site/SET_STATE',
+    payload: {
+      loading: true,
+    },
+  })
+  const success = yield call(jwt.fetchProducts)
+  
+  if (success && success.status) {
+    yield put({
+      type: 'site/SET_STATE',
+      payload: {
+        loading: false,
+        products:success.data
+      },
+    })
+  }
+  if (!success || !success.status) {
+    yield put({
+      type: 'site/SET_STATE',
+      payload: {
+        loading: false,
+      },
+    })
+  }
+}
+
+export function* CATEGORIES_PRODUCT({payload}) {
+  yield put({
+    type: 'site/SET_STATE',
+    payload: {
+      loading: true,
+      categoriesProduct:[],
+      categoryName:"",
+      categoryDescription:""
+    },
+  })
+  const success = yield call(jwt.fetchCatProduct, payload)
+  
+  if (success && success.status) {
+    yield put({
+      type: 'site/SET_STATE',
+      payload: {
+        loading: false,
+        categoriesProduct:success.data && success.data.Products,
+        categoryName:success.data.name,
+        categoryDescription:success.data.description
+      },
+    })
+  }
+  if (!success || !success.status) {
+    yield put({
+      type: 'site/SET_STATE',
+      payload: {
+        loading: false,
+      },
+    })
+  }
+}
+
+export function* CATEGORIES() {
+  yield put({
+    type: 'site/SET_STATE',
+    payload: {
+      loading: true,
+    },
+  })
+  const success = yield call(jwt.fetchCategories)
+  
+  if (success && success.status) {
+    yield put({
+      type: 'site/SET_STATE',
+      payload: {
+        loading: false,
+        categories:success.data
       },
     })
   }
@@ -132,5 +224,8 @@ export default function* rootSaga() {
     takeEvery(actions.SEND_MESSAGE, SEND_MESSAGE),
     takeEvery(actions.TEAM, TEAM),
     takeEvery(actions.SERVICES, SERVICES),
+    takeEvery(actions.PRODUCTS, PRODUCTS),
+    takeEvery(actions.CATEGORIES_PRODUCT, CATEGORIES_PRODUCT),
+    takeEvery(actions.CATEGORIES, CATEGORIES),
   ])
 }

@@ -20,7 +20,9 @@ import Profile from "views/admin/Profile.js";
 import Roles from "views/admin/Roles";
 import Messages from "views/admin/Messages.js";
 import Services from "views/admin/Services";
+import Category from "views/admin/Category";
 import { history } from "index";
+import Product from "views/admin/Product";
 
 export default function Admin() {
   useEffect(() => {
@@ -49,6 +51,8 @@ export default function Admin() {
             <Route path="/admin/role" exact component={Roles} />
             <Route path="/admin/message" exact component={Messages} />
             <Route path="/admin/service" exact component={Services} />
+            <Route path="/admin/category" exact component={Category} />
+            <Route path="/admin/product" exact component={Product} />
             <Route path="/admin/tables" exact component={Tables} />
             <Redirect from="/admin" to="/admin/admin-list" />
           </Switch>

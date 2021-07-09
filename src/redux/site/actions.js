@@ -3,7 +3,9 @@ const actions = {
     ABOUT: 'site/ABOUT',
     SEND_MESSAGE: 'site/SEND_MESSAGE',
     TEAM: 'site/TEAM',
-    PRODUCT: 'site/PRODUCT',
+    PRODUCTS: 'site/PRODUCTS',
+    CATEGORIES_PRODUCT:'site/CATEGORIES_PRODUCT',
+    CATEGORIES:'site/CATEGORIES',
     SERVICES: 'site/SERVICES',
   }
   

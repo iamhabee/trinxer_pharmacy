@@ -30,7 +30,7 @@ export default function BoardOfDirectors() {
                   <i className="fas fa-table text-xl"></i>
                 </div>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                  Working with us is a pleasure
+                  Meet The Board of Directors
                 </h3>
                 <Card style={{marginTop: 16 }} loading={loading}>
                   <List

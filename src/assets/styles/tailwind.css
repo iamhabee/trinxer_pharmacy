@@ -1624,6 +1624,10 @@ select {
   list-style-type: none;
 }
 
+.list-circle {
+  list-style-type: circle;
+}
+
 .m-2 {
   margin: 0.5rem;
 }

@@ -263,8 +263,8 @@ function BlogsPage({dispatch, blogs, loading}) {
                     onEditorStateChange={onEditorStateChange}
                   />
                 </Form.Item>
-                <Form.Item label="Upload">
-                  <Upload onChange={handleChange} customRequest={dummyRequest}>
+                <Form.Item >
+                  <Upload onChange={handleChange} customRequest={dummyRequest} maxCount={1}>
                     <Button icon={<InboxOutlined />}>Upload Blog Image</Button>
                   </Upload>
                 </Form.Item>
@@ -314,10 +314,12 @@ function BlogsPage({dispatch, blogs, loading}) {
                     onEditorStateChange={onEditorStateChange}
                   />
                 </Form.Item>
-                <Upload onChange={handleChange} customRequest={dummyRequest} style={{marginBottom:10}}>
-                  <Button icon={<InboxOutlined />}>Upload Blog Image</Button>
-                </Upload>
                 <Form.Item>
+                  <Upload onChange={handleChange} customRequest={dummyRequest} maxCount={1}>
+                    <Button icon={<InboxOutlined />}>Upload Blog Image</Button>
+                  </Upload>
+                </Form.Item>
+                <Form.Item >
                   <Button type="primary" htmlType="submit" loading={loading}>
                     Update
                   </Button>
