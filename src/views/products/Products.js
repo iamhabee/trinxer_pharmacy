@@ -35,7 +35,7 @@ export default function ProductsPage() {
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                 <div className="px-4 py-5 flex-auto">
                   {/* <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400"> */}
-                    <img className="align-middle border-none max-w-full h-auto rounded-lg" src={`${imageUrl}products/${product.imageUrl}`}/>
+                    <img className="align-middle border-none max-w-full h-auto rounded-lg" src={`${imageUrl}products/${product.imageUrl}`} style={{height:200, width:200}}/>
                   {/* </div> */}
                   <h6 className="text-xl font-semibold">{product.name}</h6>
                   <p className="mt-2 mb-4 text-blueGray-500">
