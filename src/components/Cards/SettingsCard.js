@@ -3,6 +3,10 @@ import {Form, Input, Button, Card, Upload, Space} from 'antd'
 import { connect } from "react-redux";
 import { InboxOutlined} from '@ant-design/icons'
 import { imageUrl } from "services/axios";
+import { Editor } from "react-draft-wysiwyg";
+import draftToHtml from "draftjs-to-html";
+import htmlToDraft from 'html-to-draftjs';
+import { convertToRaw, EditorState, ContentState } from "draft-js";
 
 // components
 
@@ -11,6 +15,9 @@ const mapStateToProps =({dispatch, setting}) =>({
   about:setting.about,
   contact:setting.contact,
   header:setting.header,
+  whoWeAre:setting.whoWeAre,
+  privateLabelling:setting.privateLabelling,
+  socialResponsibility:setting.socialResponsibility,
   loading:setting.loading
 })
 const layout = {
@@ -27,8 +34,14 @@ const tailLayout = {
     span: 10,
   },
 };
-function SettingsCard({dispatch, about, header, contact, loading}) {
+const getHtml = editorState => draftToHtml(convertToRaw(editorState.getCurrentContent()));
+function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, privateLabelling, socialResponsibility}) {
+  console.log(privateLabelling, socialResponsibility)
   const [form] = Form.useForm();
+  const [editor, setEditor] = useState("")
+  const [editWhoWeAre, setEditWhoWeAre] = useState(false)
+  const [editLabelling, setEditLabelling] = useState(false)
+  const [editResponsibility, setEditResponsibility] = useState(false)
   const [editAboutSetting, setEditAboutSetting] = useState(false)
   const [editContactSetting, setEditContactSetting] = useState(false)
   const [editHeaderSetting, setEditHeaderSetting] = useState(false)
@@ -67,6 +80,39 @@ function SettingsCard({dispatch, about, header, contact, loading}) {
     })
 	}
 
+  const onFinishUpdateWhoWeAre = (value) =>{
+    const newValue = {
+      id:value.id,
+      who_we_are: getHtml(editor)
+    }
+		dispatch({
+      type:"setting/UPDATE_WHO_WE_ARE",
+      payload:newValue
+    })
+	}
+
+  const onFinishUpdateLabelling = (value) =>{
+    const newValue = {
+      id:value.id,
+      private_label: getHtml(editor)
+    }
+		dispatch({
+      type:"setting/UPDATE_LABELLING",
+      payload:newValue
+    })
+	}
+
+  const onFinishUpdateResponsibility = (value) =>{
+    const newValue = {
+      id:value.id,
+      social_res: getHtml(editor)
+    }
+		dispatch({
+      type:"setting/UPDATE_RESPONSIBILITY",
+      payload:newValue
+    })
+	}
+
   const handleEditHeaderState = (value) =>{
     setEditHeaderSetting(value)
   }
@@ -75,9 +121,43 @@ function SettingsCard({dispatch, about, header, contact, loading}) {
     setEditAboutSetting(value)
   }
 
+  const handleEditWhoWeAreState = (state) =>{
+    setEditWhoWeAre(state)
+    if(whoWeAre.who_we_are){
+      const blocksFromHtml = htmlToDraft(whoWeAre.who_we_are);
+      const { contentBlocks, entityMap } = blocksFromHtml;
+      const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+      setEditor(EditorState.createWithContent(contentState));
+    }
+  }
+
+  const handleEditLabellingState = (state) =>{
+    setEditLabelling(state)
+    if(privateLabelling.private_labelling){
+      const blocksFromHtml = htmlToDraft(privateLabelling.private_labelling);
+      const { contentBlocks, entityMap } = blocksFromHtml;
+      const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+      setEditor(EditorState.createWithContent(contentState));
+    }
+  }
+
+  const handleEditResponsibilityState = (state) =>{
+    setEditResponsibility(state)
+    if(socialResponsibility.social_res){
+      const blocksFromHtml = htmlToDraft(socialResponsibility.social_res);
+      const { contentBlocks, entityMap } = blocksFromHtml;
+      const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+      setEditor(EditorState.createWithContent(contentState));
+    }
+  }
+
   const handleEditContactState = (value) =>{
     setEditContactSetting(value)
   }
+
+  const onEditorStateChange = editorState => {
+    setEditor(editorState);
+  };
 
   const getBase64 = (img, callback) => {
     const reader = new FileReader();
@@ -206,16 +286,154 @@ function SettingsCard({dispatch, about, header, contact, loading}) {
               </Form>:
               <div className="flex flex-wrap">
                 <div className="w-full lg:w-8/12 md:w-8/12">
-                  <h3 className="text-blueGray-700 text-lg">About Us</h3>
+                  <h3 className="text-blueGray-700 text-lg">About Us caption</h3>
                   <p className="text-blueGray-700 text-xl font-bold">{about.aboutUs}</p>
-                  <h3 className="text-blueGray-700 text-lg">Our Mission</h3>
+                  <h3 className="text-blueGray-700 text-lg">Our Value</h3>
                   <p className="text-blueGray-700 text-xl font-bold">{about.mission}</p>
-                  <h3 className="text-blueGray-700 text-lg">Our Vision</h3>
+                  <h3 className="text-blueGray-700 text-lg">Our Purpose</h3>
                   <p className="text-blueGray-700 text-xl font-bold">{about.vision}</p>
                 </div>
                 <div className="w-full lg:w-4/12 md:w-4/12">
                   <img alt="example" src={`${imageUrl}settings/${about.aboutImagePath}`}/>
                 </div>
+              </div>}
+            </Card>
+            
+            {/* who we are */}
+            <Card
+              loading={loading}
+              title="Who we are Content"
+              extra={
+                <button
+                  className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={()=>handleEditWhoWeAreState(!editWhoWeAre)}
+                >
+                  <i className={`fas fa-${editWhoWeAre? "eye":"pencil-alt"} mr-2 text-sm text-blueGray-100`}></i>
+                  {editWhoWeAre ? "View ":"Edit "}
+                  Who we are
+                </button>
+              }>
+              {editWhoWeAre?
+              <Form
+                onFinish={onFinishUpdateWhoWeAre}
+                form={form}
+                initialValues={{id:whoWeAre.id}}>
+                <Form.Item name="who_we_are" label="Who We Are">
+                  <Editor
+                    editorState={editor}
+                    editorClassName="px-3 border border-gray-1"
+                    editorStyle={{
+                        height: 200,
+                        overflow:'auto',
+                    }}
+                    onEditorStateChange={onEditorStateChange}
+                  />
+                </Form.Item>
+                <Form.Item name="id" hidden>
+                  <Input />
+                </Form.Item>
+                <Form.Item {...tailLayout}>
+                  <Button type="primary" htmlType="submit" loading={loading}>
+                    Update
+                  </Button>
+                </Form.Item>
+              </Form>:
+              <div>
+                <h3 className="text-blueGray-700 text-lg">Who We Are</h3>
+                <p className="text-blueGray-700 text-xl font-bold" dangerouslySetInnerHTML={{__html: whoWeAre.who_we_are}} />
+              </div>}
+            </Card>
+
+            {/* private labelling */}
+            <Card
+              loading={loading}
+              title="Private Labelling Content"
+              extra={
+                <button
+                  className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={()=>handleEditLabellingState(!editLabelling)}
+                >
+                  <i className={`fas fa-${editLabelling? "eye":"pencil-alt"} mr-2 text-sm text-blueGray-100`}></i>
+                  {editLabelling ? "View ":"Edit "}
+                  Private Labelling
+                </button>
+              }>
+              {editLabelling?
+              <Form
+                onFinish={onFinishUpdateLabelling}
+                form={form}
+                initialValues={{id:privateLabelling.id}}>
+                <Form.Item name="private_label" label="Private Label">
+                  <Editor
+                    editorState={editor}
+                    editorClassName="px-3 border border-gray-1"
+                    editorStyle={{
+                        height: 200,
+                        overflow:'auto',
+                    }}
+                    onEditorStateChange={onEditorStateChange}
+                  />
+                </Form.Item>
+                <Form.Item name="id" hidden>
+                  <Input />
+                </Form.Item>
+                <Form.Item {...tailLayout}>
+                  <Button type="primary" htmlType="submit" loading={loading}>
+                    Update
+                  </Button>
+                </Form.Item>
+              </Form>:
+              <div>
+                <h3 className="text-blueGray-700 text-lg">Private Labelling </h3>
+                <p className="text-blueGray-700 text-xl font-bold" dangerouslySetInnerHTML={{__html: privateLabelling.private_labelling}} />
+              </div>}
+            </Card>
+
+            {/* social responsiblity */}
+            <Card
+              loading={loading}
+              title="Social Responsibility Content"
+              extra={
+                <button
+                  className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={()=>handleEditResponsibilityState(!editResponsibility)}
+                >
+                  <i className={`fas fa-${editResponsibility? "eye":"pencil-alt"} mr-2 text-sm text-blueGray-100`}></i>
+                  {editResponsibility ? "View ":"Edit "}
+                  Social Responsibility
+                </button>
+              }>
+              {editResponsibility?
+              <Form
+                onFinish={onFinishUpdateResponsibility}
+                form={form}
+                initialValues={{id:socialResponsibility.id}}>
+                <Form.Item name="social_res" label="Social Responsibility">
+                  <Editor
+                    editorState={editor}
+                    editorClassName="px-3 border border-gray-1"
+                    editorStyle={{
+                        height: 200,
+                        overflow:'auto',
+                    }}
+                    onEditorStateChange={onEditorStateChange}
+                  />
+                </Form.Item>
+                <Form.Item name="id" hidden>
+                  <Input />
+                </Form.Item>
+                <Form.Item {...tailLayout}>
+                  <Button type="primary" htmlType="submit" loading={loading}>
+                    Update
+                  </Button>
+                </Form.Item>
+              </Form>:
+              <div>
+                <h3 className="text-blueGray-700 text-lg">Social Responsibility</h3>
+                <p className="text-blueGray-700 text-xl font-bold" dangerouslySetInnerHTML={{__html: socialResponsibility.social_res}} />
               </div>}
             </Card>
             <Card

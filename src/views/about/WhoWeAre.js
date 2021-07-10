@@ -26,19 +26,9 @@ export default function WhoWeAre() {
                   <i className="fas fa-user-shield text-xl"></i>
                 </div>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                 Our Mission
+                 Who We Are
                 </h3>
-                <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
-                  CEDEM AG is a privately-owned international pharmaceutical company that manufactures and markets its branded OTC nutraceutical and medicinal products worldwide with its headquarters based in Zurich, Switzerland. Its branch in Jordan is responsible for sales and marketing for MENA and emerging markets of China and Vietnam. It also has an operating branch in Germany, and an Irish branch responsible for licensing and regulatory affairs.
-
-                  CEDEM AG is focused on promoting improved health and wellness through premium quality, high value, and efficacy healthcare products that range from innovative, groundbreaking food supplements to medical devices and personal care products.
-
-                  Stemming from our belief that the person is and must always remain the priority, our modus operandi is to remain connected to people, listen to their needs and create what they really want: healthier, happier and longer lives.
-
-                  CEDEM AG conforms to each market’s needs by offering a suitable variety to each of its wide-ranging products especially in the MENA region and emerging markets of China and Vietnam through various distributors in different countries.
-
-                  CEDEM AG is also a specialized private label service provider of a broad selection of healthcare products in both MENA and emerging markets of China and Vietnam.
-                </p>
+                <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600" dangerouslySetInnerHTML={{__html: about.who_we_are}} />
               </div>
             </div>
           </div>

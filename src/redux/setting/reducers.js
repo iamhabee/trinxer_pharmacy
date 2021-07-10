@@ -4,6 +4,9 @@ const initialState = {
   header: {},
   about: {},
   contact: {},
+  whoWeAre: {},
+  privateLabelling: {},
+  socialResponsibility: {},
   loading: false,
 }
 

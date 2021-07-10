@@ -611,3 +611,99 @@ export async function updateAbout(data) {
     })
     .catch(err => console.log(err))
 }
+
+// get Who we are api
+export async function getWhoWeAre() {
+  return apiClient
+    .get('/setting/who_we_are')
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// update who we are api
+export async function updateWhoWeAre(data) {
+  return apiClient
+    .put('/setting/who_we_are', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// get Private Labelling api
+export async function getLabelling() {
+  return apiClient
+    .get('/setting/private_label')
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// update private labelling api
+export async function updateLabelling(data) {
+  return apiClient
+    .put('/setting/private_label', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// get Social Responsibility api
+export async function getResponsibility() {
+  return apiClient
+    .get('/setting/social_res')
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// update social responsibility api
+export async function updateResponsibility(data) {
+  return apiClient
+    .put('/setting/social_res', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}

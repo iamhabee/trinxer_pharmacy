@@ -21,6 +21,15 @@ function Settings({dispatch}) {
     dispatch({
       type:"setting/GET_HEADER"
     })
+    dispatch({
+      type:"setting/GET_WHO_WE_ARE"
+    })
+    dispatch({
+      type:"setting/GET_LABELLING"
+    })
+    dispatch({
+      type:"setting/GET_RESPONSIBILITY"
+    })
   }, [])
   return (
     <>
