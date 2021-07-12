@@ -2,26 +2,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { history } from "index";
-// components
+import Topbar from "./Topbar";
+import IndexDropdown from "components/Dropdowns/IndexDropdown.js";
 
-// import IndexDropdown from "components/Dropdowns/IndexDropdown.js";
-
-export default function Navbar(props) {
+export default function Navbar() {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   const pathname = history.location.pathname
   const menuItems = [
-    {
-      title: 'About Us',
-      url: '/about',
-      icon: 'fas fa-users',
-      active: pathname === "/about/who-we-are" || 
-              pathname === "/about/purpose-and-value" ||
-              pathname === "/about/board-of-director" ||
-              pathname === "/about/executive-team" ||
-              pathname === "/about/offices" ||
-              pathname === "/about/social-responsibility" ||
-              pathname === "/about/our-distributors"
-    },
     {
       title: 'Blogs',
       url: '/blogs',
@@ -52,12 +39,13 @@ export default function Navbar(props) {
   ];
   return (
     <>
-      <nav className="top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-white shadow">
-        <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
+      <nav className="top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px-0 py-0 navbar-expand-lg bg-lightBlue-500 shadow">
+        <Topbar navbarOpen={navbarOpen}/>
+        <div className="container px-4 py-3 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <Link
               to="/"
-              className="text-blueGray-700 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
+              className="text-white text-xl font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
             >
               Trinxer Pharmacy
             </Link>
@@ -71,20 +59,23 @@ export default function Navbar(props) {
           </div>
           <div
             className={
-              "lg:flex flex-grow items-center bg-white lg:bg-opacity-0 lg:shadow-none" +
+              "lg:flex flex-grow items-center bg-lightBlue-500 lg:bg-opacity-0 lg:shadow-none" +
               (navbarOpen ? " block" : " hidden")
             }
             id="example-navbar-warning"
           >
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+              <li className="flex items-center">
+                <IndexDropdown />
+              </li>
               {menuItems.map( (menu, index) =>(
               <li className="flex items-center" key={index}>
                 <Link
                   className={
                     `items-center text-xs uppercase font-bold px-3 py-4 lg:py-2 flex
                       ${menu.active
-                      ? "text-lightBlue-500 hover:text-lightBlue-600 text-lg"
-                      : "text-blueGray-700 hover:text-blueGray-500"}`
+                      ? "text-orange-500 hover:text-white text-lg"
+                      : "text-white hover:text-orange-500"}`
                   }
                   to={menu.url}
                 >
@@ -92,7 +83,7 @@ export default function Navbar(props) {
                       `text-lg leading-lg
                       ${menu.active
                         ? "opacity-75"
-                        : "text-blueGray-400"} ${menu.icon}`
+                        : "text-white"} ${menu.icon}`
                     }  />
                   <span className="inline-block ml-2">{menu.title}</span>
                 </Link>

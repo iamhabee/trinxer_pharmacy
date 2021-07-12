@@ -11,6 +11,8 @@ import setting from './setting/reducers';
 import site from './site/reducers';
 import category from './category/reducers';
 import product from './product/reducers';
+import office from './office/reducers';
+import distributor from './distributor/reducers';
 
 export default combineReducers({
     auth,
@@ -23,5 +25,7 @@ export default combineReducers({
     setting,
     site,
     category,
-    product
+    product,
+    office,
+    distributor
 });

@@ -1,17 +1,7 @@
 import { all, takeEvery, put, call } from 'redux-saga/effects'
-import * as sites from 'services/jwt/siteApi'
+import * as jwt from 'services/jwt/siteApi'
 import actions from './actions'
 import {notification} from 'antd'
-
-const jwt = {
-    fetchSetting: sites.fetchSetting,
-    fetchTeam: sites.fetchTeam,
-    sendMessage: sites.sendMessage,
-    fetchService: sites.fetchService,
-    fetchProducts: sites.fetchProducts,
-    fetchCatProduct: sites.fetchCatProduct,
-    fetchCategories: sites.fetchCategories,
-}
 
 export function* ABOUT() {
   yield put({
@@ -186,6 +176,62 @@ export function* SERVICES() {
   }
 }
 
+export function* OFFICES() {
+  yield put({
+    type: 'site/SET_STATE',
+    payload: {
+      loading: true,
+    },
+  })
+  const success = yield call(jwt.fetchOffices)
+  
+  if (success && success.status) {
+    yield put({
+      type: 'site/SET_STATE',
+      payload: {
+        loading: false,
+        services:success.data
+      },
+    })
+  }
+  if (!success || !success.status) {
+    yield put({
+      type: 'site/SET_STATE',
+      payload: {
+        loading: false,
+      },
+    })
+  }
+}
+
+export function* DISTRIBUTORS() {
+  yield put({
+    type: 'site/SET_STATE',
+    payload: {
+      loading: true,
+    },
+  })
+  const success = yield call(jwt.fetchDistributor)
+  
+  if (success && success.status) {
+    yield put({
+      type: 'site/SET_STATE',
+      payload: {
+        loading: false,
+        services:success.data
+      },
+    })
+  }
+  if (!success || !success.status) {
+    yield put({
+      type: 'site/SET_STATE',
+      payload: {
+        loading: false,
+      },
+    })
+  }
+}
+
 export function* SEND_MESSAGE({payload}) {
   yield put({
     type: 'site/SET_STATE',
@@ -225,6 +271,8 @@ export default function* rootSaga() {
     takeEvery(actions.TEAM, TEAM),
     takeEvery(actions.SERVICES, SERVICES),
     takeEvery(actions.PRODUCTS, PRODUCTS),
+    takeEvery(actions.OFFICES, OFFICES),
+    takeEvery(actions.DISTRIBUTORS, DISTRIBUTORS),
     takeEvery(actions.CATEGORIES_PRODUCT, CATEGORIES_PRODUCT),
     takeEvery(actions.CATEGORIES, CATEGORIES),
   ])

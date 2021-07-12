@@ -4,6 +4,7 @@ import { Switch, Route, Redirect, Router } from "react-router-dom";
 // components
 
 import IndexNavbar from "components/Navbars/IndexNavbar";
+import Topbar from "components/Navbars/Topbar";
 // import Sidebar from "components/Sidebar/Sidebar.js";
 import AboutHeader from "components/Headers/AboutHeader";
 import Footer from "components/Footers/Footer";
@@ -22,6 +23,7 @@ import AboutSidebar from "components/Sidebar/AboutSidebar";
 export default function Admin() {
   return (
     <>
+      {/* <Topbar /> */}
       <IndexNavbar transparent />
       <main>
         <AboutHeader />

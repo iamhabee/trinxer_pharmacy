@@ -5,6 +5,8 @@ const initialState = {
   contact: {},
   team: [],
   services: [],
+  offices: [],
+  distributors: [],
   loading: false,
   messageLoading:false,
   title:"About Us",

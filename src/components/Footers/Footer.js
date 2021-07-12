@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -65,36 +66,28 @@ export default function Footer() {
                   </span>
                   <ul className="list-unstyled">
                     <li>
-                      <a
+                      <Link
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="#"
+                        to="/about"
                       >
                         About Us
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
+                      <Link
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="#"
+                        to="/blogs"
                       >
                         Blog
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
+                      <Link
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="#"
+                        to="/products"
                       >
-                        Github
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="#"
-                      >
-                        Free Products
-                      </a>
+                        Products
+                      </Link>
                     </li>
                   </ul>
                 </div>
@@ -104,28 +97,20 @@ export default function Footer() {
                   </span>
                   <ul className="list-unstyled">
                     <li>
-                      <a
+                      <Link
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="#"
+                        to="/private-labelling"
                       >
-                        Terms & Conditions
-                      </a>
+                        Private Labelling
+                      </Link>
                     </li>
                     <li>
-                      <a
+                      <Link
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="#"
-                      >
-                        Privacy Policy
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="#"
+                        to="/contact"
                       >
                         Contact Us
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </div>
@@ -134,6 +119,20 @@ export default function Footer() {
           </div>
           <hr className="my-6 border-blueGray-300" />
           <div className="flex flex-wrap items-center md:justify-between justify-center">
+            <a
+              href="08165607970"
+              className="text-blueGray-700 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
+            >
+              <i className="fas fa-phone"></i> 	&nbsp;
+              +2348165607970
+            </a>
+            <a
+              href="info@trinxer.com"
+              className="text-blueGray-700 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
+            >
+              <i className="fas fa-envelope"></i>	&nbsp;
+              info@trinxer.com
+            </a>
             <div className="w-full md:w-4/12 px-4 mx-auto text-center">
               <div className="text-sm text-blueGray-500 font-semibold py-1">
                 Copyright © {new Date().getFullYear()}

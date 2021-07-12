@@ -20,7 +20,7 @@ export default function Contact() {
     <>
       <Navbar transparent />
       <main>
-        <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
+        <div className="relative pt-32 pb-32 flex content-center items-center justify-center min-h-screen-75">
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
@@ -38,7 +38,7 @@ export default function Contact() {
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-5xl">
-                    Your story starts with us.
+                    Contact Us.
                   </h1>
                   <p className="mt-4 text-lg text-blueGray-200">
                     This is a simple example of a Landing Page you can build

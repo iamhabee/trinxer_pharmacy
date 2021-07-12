@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function FooterSmall(props) {
   return (
@@ -27,29 +28,21 @@ export default function FooterSmall(props) {
             <div className="w-full md:w-8/12 px-4">
               <ul className="flex flex-wrap list-none md:justify-end  justify-center">
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="/about"
                     className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
                   >
                     About Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="/blogs"
                     className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
                   >
                     Blog
-                  </a>
+                  </Link>
                 </li>
-                {/* <li>
-                  <a
-                    href="https://github.com/creativetimofficial/notus-react/blob/main/LICENSE.md?ref=nr-footer-small"
-                    className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
-                  >
-                    MIT License
-                  </a>
-                </li> */}
               </ul>
             </div>
           </div>

@@ -63,6 +63,19 @@ function Sidebar({profile, dispatch}) {
       icon: 'fas fa-code-branch',
       // role:["cooperative"]
     },
+    
+    {
+      text: 'Distributors',
+      url: '/admin/distributor',
+      icon: 'fas fa-code-branch',
+      // role:["cooperative"]
+    },
+    {
+      text: 'Offices',
+      url: '/admin/office',
+      icon: 'fas fa-code-branch',
+      // role:["cooperative"]
+    },
     {
       text: 'Profile',
       url: '/admin/profile',

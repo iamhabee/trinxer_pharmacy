@@ -11,13 +11,11 @@ export default function OurDistributor() {
   const { Step } = Steps;
   const dispatch = useDispatch()
   const data = useSelector(state => state.site)
-  const {team} = data
+  const {distributors} = data
+  console.log(distributors)
   useEffect(() => {
     dispatch({
-      type:"site/ABOUT"
-    })
-    dispatch({
-      type:"site/TEAM"
+      type:"site/DISTRIBUTORS"
     })
     dispatch({
       type:"site/SET_STATE",

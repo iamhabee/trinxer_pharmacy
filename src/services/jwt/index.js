@@ -707,3 +707,99 @@ export async function updateResponsibility(data) {
     })
     .catch(err => console.log(err))
 }
+
+// get all offices api
+export async function getOffices() {
+  return apiClient
+    .get('/setting/office')
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// update office api
+export async function updateOffice(data) {
+  return apiClient
+    .put('/setting/office', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// create office api
+export async function createOffice(data) {
+  return apiClient
+    .post('/setting/office', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// get all Distributors api
+export async function getDistributors() {
+  return apiClient
+    .get('/setting/distributor')
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// update distributor api
+export async function updateDistributor(data) {
+  return apiClient
+    .put('/setting/distributor', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
+// create distributor api
+export async function createDistributor(data) {
+  return apiClient
+    .post('/setting/distributor', data)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}

@@ -1,9 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { createPopper } from "@popperjs/core";
+import { history } from "index";
 
 const IndexDropdown = () => {
   // dropdown props
+  const pathname = history.location.pathname
+  const active = pathname === "/about/who-we-are" || 
+              pathname === "/about/purpose-and-value" ||
+              pathname === "/about/board-of-director" ||
+              pathname === "/about/executive-team" ||
+              pathname === "/about/offices" ||
+              pathname === "/about/social-responsibility" ||
+              pathname === "/about/our-distributors"
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
   const popoverDropdownRef = React.createRef();
@@ -16,18 +25,67 @@ const IndexDropdown = () => {
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
   };
+
+  const menuItems = [
+    {
+      title: 'Who we are',
+      url: '/about/who-we-are',
+      icon: 'fas fa-globe',
+    },
+    {
+      title: 'Purpose and value',
+      url: '/about/purpose-and-value',
+      icon: 'fas fa-lock',
+    },
+    {
+      title: 'Board of Director',
+      url: '/about/board-of-director',
+      icon: 'fas fa-info-circle',
+    },
+    {
+      title: 'Executive team',
+      url: '/about/executive-team',
+      icon: 'fas fa-info-circle',
+    },
+    {
+      title: 'Offices',
+      url: '/about/offices',
+      icon: 'fas fa-info-circle',
+    },
+    {
+      title: 'Social Responsibility',
+      url: '/about/social-responsibility',
+      icon: 'fas fa-info-circle',
+    },
+    {
+      title: 'Our Distributors',
+      url: '/about/our-distributors',
+      icon: 'fas fa-info-circle',
+    }
+  ];
+
   return (
     <>
       <a
-        className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-        href="#pablo"
+        className={
+          `items-center text-xs uppercase font-bold px-3 py-4 lg:py-2 flex
+            ${active
+            ? "text-orange-500 hover:text-white text-lg"
+            : "text-white hover:text-orange-500"}`}
+        href="#about"
         ref={btnDropdownRef}
         onClick={(e) => {
           e.preventDefault();
           dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
         }}
       >
-        Demo Pages
+        <i className={
+            `text-lg leading-lg
+            ${active
+              ? "opacity-75"
+              : "text-white"} fas fa-users`
+          }  />
+        <span className="inline-block ml-2">About Us</span>
       </a>
       <div
         ref={popoverDropdownRef}
@@ -36,77 +94,15 @@ const IndexDropdown = () => {
           "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
         }
       >
-        <span
-          className={
-            "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
-          }
-        >
-          Admin Layout
-        </span>
+        {menuItems.map( (menu, index) =>(
         <Link
-          to="/admin/dashboard"
+          key={index}
+          to={menu.url}
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
         >
-          Dashboard
+          {menu.title}
         </Link>
-        <Link
-          to="/admin/settings"
-          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-        >
-          Settings
-        </Link>
-        <Link
-          to="/admin/tables"
-          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-        >
-          Tables
-        </Link>
-        <Link
-          to="/admin/maps"
-          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-        >
-          Maps
-        </Link>
-        <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
-        <span
-          className={
-            "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
-          }
-        >
-          Auth Layout
-        </span>
-        <Link
-          to="/auth/login"
-          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-        >
-          Login
-        </Link>
-        <Link
-          to="/auth/register"
-          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-        >
-          Register
-        </Link>
-        <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
-        <span
-          className={
-            "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
-          }
-        >
-          No Layout
-        </span>
-        <Link
-          to="/landing"
-          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-        >
-          Landing
-        </Link>
-        <Link
-          to="/profile"
-          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-        >
-          Profile
-        </Link>
+        ))}
       </div>
     </>
   );

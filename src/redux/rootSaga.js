@@ -10,6 +10,8 @@ import Setting from './setting/sagas';
 import Site from './site/sagas';
 import Category from './category/sagas';
 import Product from './product/sagas';
+import Office from './office/sagas';
+import Distributor from './distributor/sagas';
 
 export default function* rootSaga() {
     yield all([
@@ -23,6 +25,8 @@ export default function* rootSaga() {
         Setting(),
         Site(),
         Category(),
-        Product()
+        Product(),
+        Office(),
+        Distributor()
     ]);
 }

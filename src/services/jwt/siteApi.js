@@ -162,3 +162,25 @@ export const fetchCategories = async() =>{
       console.log(err);
     }
 }
+
+export const fetchOffices = async() =>{
+  try {
+      let response = await fetch(`${siteURL}setting/office`);
+      let data = await response.json();
+      return data
+    } catch(err) {
+      // catches errors both in fetch and response.json
+      console.log(err);
+    }
+}
+
+export const fetchDistributor = async() =>{
+  try {
+      let response = await fetch(`${siteURL}setting/distributor`);
+      let data = await response.json();
+      return data
+    } catch(err) {
+      // catches errors both in fetch and response.json
+      console.log(err);
+    }
+}

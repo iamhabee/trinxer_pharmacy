@@ -21,6 +21,8 @@ import Roles from "views/admin/Roles";
 import Messages from "views/admin/Messages.js";
 import Services from "views/admin/Services";
 import Category from "views/admin/Category";
+import Offices from "views/admin/Offices";
+import Distributors from "views/admin/Distributors";
 import { history } from "index";
 import Product from "views/admin/Product";
 
@@ -52,6 +54,8 @@ export default function Admin() {
             <Route path="/admin/message" exact component={Messages} />
             <Route path="/admin/service" exact component={Services} />
             <Route path="/admin/category" exact component={Category} />
+            <Route path="/admin/office" exact component={Offices} />
+            <Route path="/admin/distributor" exact component={Distributors} />
             <Route path="/admin/product" exact component={Product} />
             <Route path="/admin/tables" exact component={Tables} />
             <Redirect from="/admin" to="/admin/admin-list" />

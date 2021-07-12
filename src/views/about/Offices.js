@@ -7,13 +7,10 @@ export default function Offices() {
 
   const dispatch = useDispatch()
   const data = useSelector(state => state.site)
-  const {team, loading} = data
+  const {offices, loading} = data
   useEffect(() => {
     dispatch({
-      type:"site/ABOUT"
-    })
-    dispatch({
-      type:"site/TEAM"
+      type:"site/OFFICES"
     })
     dispatch({
       type:"site/SET_STATE",
@@ -42,7 +39,7 @@ export default function Offices() {
                       },
                       pageSize: 3,
                     }}
-                    dataSource={team}
+                    dataSource={offices}
                     renderItem={(item, index)=> (
                       <List.Item key={index} >
                         <Descriptions title="User Info">
