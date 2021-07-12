@@ -35,7 +35,7 @@ function DistributorPage({dispatch, distributors, loading}) {
 
   useEffect(() => {
     dispatch({
-      type:"office/ALL_DISTRIBUTORS"
+      type:"distributor/ALL_DISTRIBUTORS"
     })
     dispatch({
       type:"user/CURRENT_USER"
@@ -44,7 +44,7 @@ function DistributorPage({dispatch, distributors, loading}) {
 
   const onFinish = (val) => {
     dispatch({
-      type:'office/CREATE_DISTRIBUTOR',
+      type:'distributor/CREATE_DISTRIBUTOR',
       payload:val
     })
     setAddModal(false)
@@ -53,7 +53,7 @@ function DistributorPage({dispatch, distributors, loading}) {
 
   const onFinishEdit = (val) => {
     dispatch({
-      type:'office/UPDATE_DISTRIBUTOR',
+      type:'distributor/UPDATE_DISTRIBUTOR',
       payload:val
     })
     setEditDistributor(false)
@@ -63,19 +63,19 @@ function DistributorPage({dispatch, distributors, loading}) {
   const handleEdit = (value) =>{
     setEditDistributor(true)
     forms.setFieldsValue({
-      officeName: value.officeName,
+      name: value.name,
       address: value.address,
       contactName: value.contactName,
       contactPhone: value.contactPhone,
-      officeId: value.officeId,
+      distributorId: value.distributorId,
     })
   }
 
   const columns = [
     {
-      title: 'Dist Name',
-      dataIndex: 'officeName',
-      key: 'officeName',
+      title: 'Company Name',
+      dataIndex: 'name',
+      key: 'name',
       render: text => <a>{text}</a>,
     },
     {
@@ -141,7 +141,7 @@ function DistributorPage({dispatch, distributors, loading}) {
           <div className="card">
             <div className="card-body">
               <Form form={form} onFinish={onFinish} {...layout}>
-                <Form.Item label="Name" name="name" rules={[{ required: true }]}>
+                <Form.Item label="Company Name" name="name" rules={[{ required: true }]}>
                   <Input />
                 </Form.Item>
                 <Form.Item label="Dist Address" name="address" rules={[{ required: true }]}>
@@ -175,7 +175,7 @@ function DistributorPage({dispatch, distributors, loading}) {
           <div className="card">
             <div className="card-body">
               <Form form={forms} {...layout} onFinish={onFinishEdit}>
-                <Form.Item label="Dist Name" name="name" rules={[{ required: true }]}>
+                <Form.Item label="Company Name" name="name" rules={[{ required: true }]}>
                   <Input />
                 </Form.Item>
                 <Form.Item label="Dist Address" name="address" rules={[{ required: true }]}>

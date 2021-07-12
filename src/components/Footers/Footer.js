@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux'
 
 export default function Footer() {
+  const data = useSelector(state => state.site)
+  const {about} = data
   return (
     <>
       <footer className="relative bg-blueGray-200 pt-8 pb-6">
@@ -120,18 +123,18 @@ export default function Footer() {
           <hr className="my-6 border-blueGray-300" />
           <div className="flex flex-wrap items-center md:justify-between justify-center">
             <a
-              href="08165607970"
-              className="text-blueGray-700 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
+              href={`tel:${about.contactPhone}`}
+              className="text-blueGray-700 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap"
             >
               <i className="fas fa-phone"></i> 	&nbsp;
-              +2348165607970
+              {about.contactPhone}
             </a>
             <a
-              href="info@trinxer.com"
-              className="text-blueGray-700 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
+              href={`mailto:${about.contactEmail}`}
+              className="text-blueGray-700 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap"
             >
               <i className="fas fa-envelope"></i>	&nbsp;
-              info@trinxer.com
+              {about.contactEmail}
             </a>
             <div className="w-full md:w-4/12 px-4 mx-auto text-center">
               <div className="text-sm text-blueGray-500 font-semibold py-1">

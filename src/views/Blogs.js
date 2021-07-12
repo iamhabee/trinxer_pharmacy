@@ -47,7 +47,7 @@ export default function Blogs() {
             <div className="items-center flex flex-wrap">
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
-                  <h1 className="text-white font-semibold text-5xl">
+                  <h1 className="text-white font-semibold text-4xl">
                     Welcome To Trinxer News Posts.
                   </h1>
                   <p className="mt-4 text-lg text-blueGray-200">
@@ -114,7 +114,7 @@ export default function Blogs() {
                           {blog.postTitle}
                         </h4>
                         <p className="text-md font-light mt-2 text-white">
-                          {blog.description}
+                          {blog.description && blog.description.slice(0, 50)}...
                         </p>
                         <p className="text-white mt-2">Post date: {new Date(blog.createdAt).toDateString()} </p>
                       </blockquote>

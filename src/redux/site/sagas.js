@@ -184,13 +184,12 @@ export function* OFFICES() {
     },
   })
   const success = yield call(jwt.fetchOffices)
-  
   if (success && success.status) {
     yield put({
       type: 'site/SET_STATE',
       payload: {
         loading: false,
-        services:success.data
+        offices:success.data
       },
     })
   }
@@ -218,7 +217,7 @@ export function* DISTRIBUTORS() {
       type: 'site/SET_STATE',
       payload: {
         loading: false,
-        services:success.data
+        distributors:success.data
       },
     })
   }

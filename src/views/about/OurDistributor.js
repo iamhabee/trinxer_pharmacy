@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 // import { Link } from "react-router-dom";
 import { Steps } from 'antd';
-import { UserOutlined, SolutionOutlined, LoadingOutlined, SmileOutlined,SketchOutlined } from '@ant-design/icons';
+import { UserOutlined, SolutionOutlined, FlagOutlined, SmileOutlined,SketchOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
+import { List, Card, Descriptions} from 'antd';
 import MapExample from "components/Maps/MapExample";
 
 
@@ -11,11 +12,13 @@ export default function OurDistributor() {
   const { Step } = Steps;
   const dispatch = useDispatch()
   const data = useSelector(state => state.site)
-  const {distributors} = data
-  console.log(distributors)
+  const {distributors, loading} = data
   useEffect(() => {
     dispatch({
       type:"site/DISTRIBUTORS"
+    })
+    dispatch({
+      type:"site/ABOUT"
     })
     dispatch({
       type:"site/SET_STATE",
@@ -35,10 +38,36 @@ export default function OurDistributor() {
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
                   Distributed World Wide
                 </h3>
+                <Card style={{marginTop: 16 }} loading={loading}>
+                  <List
+                    itemLayout="vertical"
+                    size="large"
+                    pagination={{
+                      onChange: page => {
+                        console.log(page);
+                      },
+                      pageSize: 3,
+                    }}
+                    dataSource={distributors}
+                    renderItem={(item, index)=> (
+                      <List.Item key={index} >
+                        <Descriptions title={item.name}>
+                          {/* <Descriptions.Item label="Office Name"></Descriptions.Item> */}
+                          <Descriptions.Item label="UserName">{item.contactName}</Descriptions.Item>
+                          <Descriptions.Item label="Telephone">{item.contactPhone}</Descriptions.Item>
+                          {/* <Descriptions.Item label="Remark">empty</Descriptions.Item> */}
+                          <Descriptions.Item label="Address">
+                            {item.address}
+                          </Descriptions.Item>
+                        </Descriptions>
+                      </List.Item>
+                    )}
+                  />
+                </Card>
                 <Steps>
                   <Step status="finish" title="Asia" icon={<UserOutlined />} />
                   <Step status="finish" title="Europe" icon={<SolutionOutlined />} />
-                  <Step status="process" title="Latin America" icon={<LoadingOutlined />} />
+                  <Step status="process" title="Latin America" icon={<FlagOutlined />} />
                   <Step status="wait" title="Mena" icon={<SmileOutlined />} />
                   <Step status="wait" title="SS Africa" icon={<SketchOutlined />} />
                 </Steps>

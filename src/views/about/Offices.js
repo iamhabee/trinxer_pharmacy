@@ -13,6 +13,9 @@ export default function Offices() {
       type:"site/OFFICES"
     })
     dispatch({
+      type:"site/ABOUT"
+    })
+    dispatch({
       type:"site/SET_STATE",
       payload:{title:"OFFICES"}
     })
@@ -42,13 +45,13 @@ export default function Offices() {
                     dataSource={offices}
                     renderItem={(item, index)=> (
                       <List.Item key={index} >
-                        <Descriptions title="User Info">
-                          <Descriptions.Item label="UserName">Zhou Maomao</Descriptions.Item>
-                          <Descriptions.Item label="Telephone">1810000000</Descriptions.Item>
-                          <Descriptions.Item label="Live">Hangzhou, Zhejiang</Descriptions.Item>
-                          <Descriptions.Item label="Remark">empty</Descriptions.Item>
+                        <Descriptions title={item.officeName}>
+                          {/* <Descriptions.Item label="Office Name"></Descriptions.Item> */}
+                          <Descriptions.Item label="UserName">{item.contactName}</Descriptions.Item>
+                          <Descriptions.Item label="Telephone">{item.contactPhone}</Descriptions.Item>
+                          {/* <Descriptions.Item label="Remark">empty</Descriptions.Item> */}
                           <Descriptions.Item label="Address">
-                            No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
+                            {item.address}
                           </Descriptions.Item>
                         </Descriptions>
                       </List.Item>

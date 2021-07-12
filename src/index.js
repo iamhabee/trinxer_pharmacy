@@ -56,14 +56,6 @@ ReactDOM.render(
         {/* add redirect for first page */}
         <Redirect from="*" to="/" />
       </Switch>
-      <a
-        href="https://wa.me/2348165607970"
-        class="whatsapp_float"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <i class="fas fa-comments whatsapp-icon"></i>
-      </a>
     </Router>
   </Provider>,
   document.getElementById("root")

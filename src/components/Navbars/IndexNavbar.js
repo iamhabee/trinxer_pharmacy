@@ -4,9 +4,12 @@ import { Link } from "react-router-dom";
 import { history } from "index";
 import Topbar from "./Topbar";
 import IndexDropdown from "components/Dropdowns/IndexDropdown.js";
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+  const data = useSelector(state => state.site)
+  const {about} = data
   const pathname = history.location.pathname
   const menuItems = [
     {
@@ -92,6 +95,14 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+      <a
+        href={`https://wa.me/${about.contactPhone}`}
+        class="whatsapp_float"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i class="fas fa-comments whatsapp-icon"></i>
+      </a>
     </>
   );
 }

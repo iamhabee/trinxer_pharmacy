@@ -188,7 +188,7 @@ function OfficePage({dispatch, offices, loading}) {
                 <Form.Item label="Contact Number" name="contactPhone" rules={[{ required: true }]}>
                   <Input />
                 </Form.Item>
-                <Form.Item name="oficeId" hidden>
+                <Form.Item name="officeId" hidden>
                   <Input />
                 </Form.Item>
                 <Form.Item {...tailLayout}>

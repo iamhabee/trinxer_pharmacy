@@ -8,6 +8,7 @@ export default function BoardOfDirectors() {
   const dispatch = useDispatch()
   const data = useSelector(state => state.site)
   const {team, loading} = data
+  const directors = team.filter(tem => tem.Role && tem.Role.roleName === "super-admin")
   useEffect(() => {
     dispatch({
       type:"site/ABOUT"
@@ -42,7 +43,7 @@ export default function BoardOfDirectors() {
                       },
                       pageSize: 3,
                     }}
-                    dataSource={team}
+                    dataSource={directors}
                     renderItem={(item, index)=> (
                       <List.Item
                         key={index}

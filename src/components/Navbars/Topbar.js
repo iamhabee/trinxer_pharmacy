@@ -1,22 +1,25 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const Topbar = () => {
+  const data = useSelector(state => state.site)
+  const {about} = data
     return (
       <div className="w-full bg-white py-3 lg:block hidden">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between bg-white">
           <a
-            href="08165607970"
-            className="text-blueGray-700 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
+            href={`tel:${about.contactPhone}`}
+            className="text-blueGray-700 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap"
           >
             <i className="fas fa-phone"></i> 	&nbsp;
-            +2348165607970
+            {about.contactPhone}
           </a>
           <a
-            href="info@trinxer.com"
-            className="text-blueGray-700 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
+            href={`mailto:${about.contactEmail}`}
+            className="text-blueGray-700 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap"
           >
             <i className="fas fa-envelope"></i>	&nbsp;
-            info@trinxer.com
+            {about.contactEmail}
           </a>
           <div >
             <button
