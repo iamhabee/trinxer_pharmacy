@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Result, Button, Skeleton} from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
@@ -12,6 +12,7 @@ import { imageUrl } from "services/axios";
 
 export default function Blogs() {
   const dispatch = useDispatch()
+  const [next, setNext] = useState(0)
   const data = useSelector(state => state.blog)
   const sites = useSelector(state => state.site)
   const {about} = sites
@@ -26,6 +27,14 @@ export default function Blogs() {
       type:"site/ABOUT"
     })
   }, [])
+
+  const fetchMore = (offset) =>{
+    dispatch({
+      type:"blog/PUBLIC_BLOGS",
+      payload:{offset, limit:10}
+    })
+    setNext(offset)
+  }
   return (
     <>
       <Navbar transparent />
@@ -48,7 +57,7 @@ export default function Blogs() {
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-4xl">
-                    Welcome To Trinxer News Posts.
+                    Welcome To Trinxer Blog Posts
                   </h1>
                   <p className="mt-4 text-lg text-blueGray-200">
                     {about.headerText}
@@ -124,6 +133,10 @@ export default function Blogs() {
                 </div>
                 ))}
             </div>
+            {public_blogs.length > 10 &&
+            <button onClick={()=>fetchMore(next+10)} className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 mt-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" style={{marginLeft:15}}>
+              Load More
+            </button>}
           </div>
         </section>
         

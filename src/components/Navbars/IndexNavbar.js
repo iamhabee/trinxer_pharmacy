@@ -50,7 +50,7 @@ export default function Navbar() {
               to="/"
               className="whitespace-nowrap"
             >
-              <img src="/images/logo/logo.jpg" style={{height:40}} />
+              <img src="/images/logo/logo.jpg" style={{height:50}} />
             </Link>
             <button
               className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"

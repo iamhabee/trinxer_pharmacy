@@ -152,92 +152,96 @@ export default function BlogDetails() {
           </div>
         </section>
         
-        <section className="pb-20 -mt-24 pt-20">
+        <section className="pb-20 pt-20">
           <div className="container mx-auto px-4">
-            <List
-              loading={loading}
-              className="comment-list"
-              header={`${single_blog.Comments && single_blog.Comments.length } replies`}
-              itemLayout="horizontal"
-              dataSource={single_blog.Comments}
-              renderItem={item => (
-                <li>
-                  <Comment
-                    author={<h3 className="text-sm uppercase font-bold text-blueGray">{item.fullName}</h3>}
-                    avatar={<Avatar className="uppercase" style={{ backgroundColor: '#f56a00'}}>{item.fullName.slice(0,1)}</Avatar>}
-                    content={<p>{item.comment}</p>}
-                    datetime={new Date(item.createdAt).toDateString()}
-                  />
-                </li>
-              )}
-            />
-            <div className="mx-auto px-4 pt-20" style={{width:"50%"}}>
-              <h3 className="leading-relaxed text-xl mt-1 mb-4 text-blueGray-500">
-                Fill the form below to reply, all feedback are welcome
-              </h3>
-              <form onSubmit={submitForm}>
-                <div className="relative w-full mb-3 mt-8">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="full-name"
-                  >
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Full Name"
-                    value={ value.fullName }
-                    name="fullName"
-                    onChange={ handleInputChange}
-                    required="required"
-                  />
-                </div>
+            <div className="flex flex-wrap">
+              <div className="pt-6 w-full md:w-6/12 px-2">
+                <List
+                  loading={loading}
+                  className="comment-list"
+                  header={`${single_blog.Comments && single_blog.Comments.length } replies`}
+                  itemLayout="horizontal"
+                  dataSource={single_blog.Comments}
+                  renderItem={item => (
+                    <li>
+                      <Comment
+                        author={<h3 className="text-sm uppercase font-bold text-blueGray">{item.fullName}</h3>}
+                        avatar={<Avatar className="uppercase" style={{ backgroundColor: '#f56a00'}}>{item.fullName.slice(0,1)}</Avatar>}
+                        content={<p>{item.comment}</p>}
+                        datetime={new Date(item.createdAt).toDateString()}
+                      />
+                    </li>
+                  )}
+                />
+              </div>
+              <div className="pt-6 w-full md:w-6/12 px-2">
+                <h3 className="leading-relaxed text-xl mt-1 mb-4 text-blueGray-500">
+                  Fill the form below to reply, all feedback are welcome
+                </h3>
+                <form onSubmit={submitForm}>
+                  <div className="relative w-full mb-3 mt-8">
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                      htmlFor="full-name"
+                    >
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      placeholder="Full Name"
+                      value={ value.fullName }
+                      name="fullName"
+                      onChange={ handleInputChange}
+                      required="required"
+                    />
+                  </div>
 
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="email"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Email"
-                    value={ value.email }
-                    name="email"
-                    onChange={ handleInputChange }
-                    required="required"
-                  />
-                </div>
+                  <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                      htmlFor="email"
+                    >
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      placeholder="Email"
+                      value={ value.email }
+                      name="email"
+                      onChange={ handleInputChange }
+                      required="required"
+                    />
+                  </div>
 
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="message"
-                  >
-                    Reply
-                  </label>
-                  <textarea
-                    rows="4"
-                    cols="80"
-                    name="comment"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                    placeholder="Type a message..."
-                    value={ value.comment }
-                    onChange={ handleInputChange }
-                  />
-                </div>
-                <div className="text-center mt-6">
-                  <button
-                    className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="submit"
-                  >
-                    {replyLoading?"Sending...":"Send Message"}
-                  </button>
-                </div>
-              </form>
+                  <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                      htmlFor="message"
+                    >
+                      Reply
+                    </label>
+                    <textarea
+                      rows="4"
+                      cols="80"
+                      name="comment"
+                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                      placeholder="Type a message..."
+                      value={ value.comment }
+                      onChange={ handleInputChange }
+                    />
+                  </div>
+                  <div className="text-center mt-6">
+                    <button
+                      className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="submit"
+                    >
+                      {replyLoading?"Sending...":"Send Message"}
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </section>

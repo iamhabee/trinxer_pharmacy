@@ -1,4 +1,4 @@
-import { all, takeEvery, put, call } from 'redux-saga/effects'
+import { all, takeEvery, put, call, select } from 'redux-saga/effects'
 import * as jwts from 'services/jwt'
 import * as sites from 'services/jwt/siteApi'
 import { message } from 'antd'
@@ -26,12 +26,14 @@ export function* PUBLIC_BLOGS({payload}) {
       loading: true,
     },
   })
+  const { public_blogs: publicBlogs } = yield select(state => state.blog)
    const success = yield call(jwt.publicBlogs, payload)
   if (success.status) {
+    const more = publicBlogs.concat(success.data)
     yield put({
       type: 'blog/SET_STATE',
       payload: {
-        public_blogs:success.data,
+        public_blogs:more,
         loading: false,
       },
     })
