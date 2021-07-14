@@ -98,6 +98,7 @@ const IndexDropdown = () => {
         <Link
           key={index}
           to={menu.url}
+          onClick={()=>{dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover()}}
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
         >
           {menu.title}

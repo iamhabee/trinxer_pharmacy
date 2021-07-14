@@ -30,10 +30,10 @@ export default function Product() {
           {/* <div className="px-4 md:px-10 mx-auto w-full lg:w-9/12 -m-24"> */}
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap items-center ">
-            <div className="w-full md:w-3/12 lg:w-3/12 px-4">
+            <div className="w-full md:w-4/12 lg:w-4/12 px-4">
               <ProductSidebar />
             </div>
-            <div className="w-full md:w-9/12 lg:w-9/12 px-4">
+            <div className="w-full md:w-8/12 lg:w-8/12 px-4">
               <Router history={history}>
                 <Switch>
                   <Route path="/products/category" exact component={ProductsCategory} />

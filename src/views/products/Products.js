@@ -14,6 +14,9 @@ export default function ProductsPage() {
       type:"site/PRODUCTS"
     })
     dispatch({
+      type:"site/ABOUT"
+    })
+    dispatch({
       type:"site/SET_STATE",
       payload:{title:"Products and Categories"}
     })
@@ -21,7 +24,7 @@ export default function ProductsPage() {
   }, [])
   return (
     <>
-      <section className="pb-20 bg-blueGray-200 -mt-24">
+      <section className="pb-20 bg-blueGray-200">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap">
             {loading && <Skeleton active />}

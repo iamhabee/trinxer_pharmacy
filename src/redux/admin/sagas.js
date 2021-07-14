@@ -48,6 +48,7 @@ export function* UPDATE_ADMIN({payload}) {
     },
   })
   const success = yield call(jwt.updateAdmin, payload)
+  console.log(success)
   if (success.status) {
     yield reduxStore.dispatch({
       type: 'admin/ALL_ADMIN'
@@ -65,6 +66,13 @@ export function* UPDATE_ADMIN({payload}) {
       type: 'admin/SET_STATE',
       payload: {
         loading: false,
+      },
+    })
+    message.warning({
+      content: success.message,
+      duration: 5,
+      style: {
+        marginTop: '50vh',
       },
     })
   }
@@ -138,6 +146,7 @@ export function* CREATE_ADMIN({payload}) {
     },
   })
   const success = yield call(jwt.createAdmin, payload)
+  console.log(success)
   if (success.status) {
     yield reduxStore.dispatch({
       type: 'admin/ALL_ADMIN'
@@ -155,6 +164,13 @@ export function* CREATE_ADMIN({payload}) {
       type: 'admin/SET_STATE',
       payload: {
         loading: false,
+      },
+    })
+    message.success({
+      content: success.message,
+      duration: 5,
+      style: {
+        marginTop: '50vh',
       },
     })
   }

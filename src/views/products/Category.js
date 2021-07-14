@@ -21,6 +21,9 @@ export default function ProductCategory() {
       type:"site/PRODUCTS"
     })
     dispatch({
+      type:"site/ABOUT"
+    })
+    dispatch({
       type:"site/SET_STATE",
       payload:{title:params.name}
     })
@@ -29,7 +32,7 @@ export default function ProductCategory() {
 
   return (
     <>
-      <section className="pb-20 bg-blueGray-200 -mt-24">
+      <section className="pb-20 bg-blueGray-200">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap">
             {loading && <Skeleton active />}

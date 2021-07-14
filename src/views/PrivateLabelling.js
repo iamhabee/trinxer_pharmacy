@@ -21,7 +21,7 @@ export default function PrivateLabelling() {
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
-              backgroundImage: `url(${imageUrl}settings/${about.headerImagePath})` }}
+              backgroundImage: `url(${imageUrl}settings/${about.private_labelling_image})` }}
           >
             <span
               id="blackOverlay"
@@ -36,7 +36,7 @@ export default function PrivateLabelling() {
                     Private Labeling.
                   </h1>
                   <p className="mt-4 text-lg text-blueGray-200">
-                    {about.headerText}
+                    {about.private_labelling_description && about.private_labelling_description.slice(0, 150)}...
                   </p>
                 </div>
               </div>

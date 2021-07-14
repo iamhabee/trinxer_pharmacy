@@ -22,22 +22,22 @@ const mapStateToProps =({dispatch, setting}) =>({
 })
 const layout = {
   labelCol: {
-    span: 4,
+    span: 6,
   },
   wrapperCol: {
-    span: 10,
+    span: 12,
   },
 };
 const tailLayout = {
   wrapperCol: {
-    offset: 4,
-    span: 10,
+    offset: 6,
+    span: 12,
   },
 };
 const getHtml = editorState => draftToHtml(convertToRaw(editorState.getCurrentContent()));
 function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, privateLabelling, socialResponsibility}) {
-  console.log(privateLabelling, socialResponsibility)
   const [form] = Form.useForm();
+  const [forms] = Form.useForm();
   const [editor, setEditor] = useState("")
   const [editWhoWeAre, setEditWhoWeAre] = useState(false)
   const [editLabelling, setEditLabelling] = useState(false)
@@ -57,6 +57,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
       type:"setting/UPDATE_HEADER",
       payload:fd
     })
+    setFile("")
 	}
 
   const onFinishUpdateAbout = (value) =>{
@@ -71,46 +72,65 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
       type:"setting/UPDATE_ABOUT",
       payload:fd
     })
+    setFile("")
 	}
 
   const onFinishUpdateContact = (value) =>{
+    const fd = new FormData();
+    fd.append('id', value.id)
+    fd.append('name', value.name)
+    fd.append('email', value.email)
+    fd.append('address', value.address)
+    fd.append('phone', value.phone)
+    fd.append('imageUrl', value.imageUrl)
+    fd.append('image', file);
 		dispatch({
       type:"setting/UPDATE_CONTACT",
-      payload:value
+      payload:fd
     })
+    setFile("")
 	}
 
   const onFinishUpdateWhoWeAre = (value) =>{
-    const newValue = {
-      id:value.id,
-      who_we_are: getHtml(editor)
-    }
+    const fd = new FormData();
+    fd.append('id', value.id)
+    fd.append('description', "")
+    fd.append('who_we_are', getHtml(editor))
+    fd.append('image', file);
+    fd.append('imageUrl', value.imageUrl);
 		dispatch({
       type:"setting/UPDATE_WHO_WE_ARE",
-      payload:newValue
+      payload:fd
     })
+    setFile("")
 	}
 
   const onFinishUpdateLabelling = (value) =>{
-    const newValue = {
-      id:value.id,
-      private_label: getHtml(editor)
-    }
+    const fd = new FormData();
+    fd.append('id', value.id)
+    fd.append('imageUrl', value.imageUrl)
+    fd.append('description', value.description)
+    fd.append('private_label', getHtml(editor))
+    fd.append('image', file);
 		dispatch({
       type:"setting/UPDATE_LABELLING",
-      payload:newValue
+      payload:fd
     })
+    setFile("")
 	}
 
   const onFinishUpdateResponsibility = (value) =>{
-    const newValue = {
-      id:value.id,
-      social_res: getHtml(editor)
-    }
+    const fd = new FormData();
+    fd.append('id', value.id)
+    fd.append('imageUrl', value.imageUrl)
+    fd.append('description', value.description)
+    fd.append('social_res', getHtml(editor))
+    fd.append('image', file);
 		dispatch({
       type:"setting/UPDATE_RESPONSIBILITY",
-      payload:newValue
+      payload:fd
     })
+    setFile("")
 	}
 
   const handleEditHeaderState = (value) =>{
@@ -227,16 +247,12 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                   </Button>
                 </Form.Item>
               </Form>:
-              <div className="flex flex-wrap">
-                <div className="w-full lg:w-4/12 md:w-4/12">
-                  <img alt="example" src={`${imageUrl}settings/${header.headerImagePath}`}/>
-                </div>
-                <div className="w-full lg:w-8/12 md:w-8/12">
-                  <h3 className="text-blueGray-700 text-lg">Header Caption</h3>
-                  <p className="text-blueGray-700 text-xl font-bold">{header.headerCaption}</p>
-                  <h3 className="text-blueGray-700 text-lg">Header Text</h3>
-                  <p className="text-blueGray-700 text-xl font-bold">{header.headerText}</p>
-                </div>
+              <div>
+                  <img alt="image" style={{height:200}} src={`${imageUrl}settings/${header.headerImagePath}`}/>
+                  <h3 className="text-blueGray-700 text-xl font-bold">Header Caption</h3>
+                  <p className="text-blueGray-700 text-sm">{header.headerCaption}</p>
+                  <h3 className="text-blueGray-700 text-xl font-bold">Header Text</h3>
+                  <p className="text-blueGray-700 text-sm">{header.headerText}</p>
               </div>}
             </Card>
             <Card
@@ -284,18 +300,14 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                   </Button>
                 </Form.Item>
               </Form>:
-              <div className="flex flex-wrap">
-                <div className="w-full lg:w-8/12 md:w-8/12">
-                  <h3 className="text-blueGray-700 text-lg">About Us caption</h3>
-                  <p className="text-blueGray-700 text-xl font-bold">{about.aboutUs}</p>
-                  <h3 className="text-blueGray-700 text-lg">Our Value</h3>
-                  <p className="text-blueGray-700 text-xl font-bold">{about.mission}</p>
-                  <h3 className="text-blueGray-700 text-lg">Our Purpose</h3>
-                  <p className="text-blueGray-700 text-xl font-bold">{about.vision}</p>
-                </div>
-                <div className="w-full lg:w-4/12 md:w-4/12">
-                  <img alt="example" src={`${imageUrl}settings/${about.aboutImagePath}`}/>
-                </div>
+              <div>
+                  <img alt="example" style={{height:200}} src={`${imageUrl}settings/${about.aboutImagePath}`}/>
+                  <h3 className="text-blueGray-700 text-xl font-bold">About Us caption</h3>
+                  <p className="text-blueGray-700 text-sm">{about.aboutUs}</p>
+                  <h3 className="text-blueGray-700 text-xl font-bold">Our Value</h3>
+                  <p className="text-blueGray-700 text-sm">{about.mission}</p>
+                  <h3 className="text-blueGray-700 text-xl font-bold">Our Purpose</h3>
+                  <p className="text-blueGray-700 text-sm">{about.vision}</p>
               </div>}
             </Card>
             
@@ -318,7 +330,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
               <Form
                 onFinish={onFinishUpdateWhoWeAre}
                 form={form}
-                initialValues={{id:whoWeAre.id}}>
+                initialValues={{id:whoWeAre.id, imageUrl:whoWeAre.imageUrl}}>
                 <Form.Item name="who_we_are" label="Who We Are">
                   <Editor
                     editorState={editor}
@@ -333,6 +345,14 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                 <Form.Item name="id" hidden>
                   <Input />
                 </Form.Item>
+                <Form.Item name="imageUrl" hidden>
+                  <Input />
+                </Form.Item>
+                <Form.Item label="Upload Image">
+                  <Upload onChange={handleChange} customRequest={dummyRequest}>
+                    <Button icon={<InboxOutlined />}>Upload Image</Button>
+                  </Upload>
+                </Form.Item>
                 <Form.Item {...tailLayout}>
                   <Button type="primary" htmlType="submit" loading={loading}>
                     Update
@@ -340,8 +360,8 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                 </Form.Item>
               </Form>:
               <div>
-                <h3 className="text-blueGray-700 text-lg">Who We Are</h3>
-                <p className="text-blueGray-700 text-xl font-bold" dangerouslySetInnerHTML={{__html: whoWeAre.who_we_are}} />
+                <img alt="image" style={{height:200}} src={`${imageUrl}settings/${whoWeAre.who_we_are_image}`}/>
+                <p className="text-blueGray-700 text-sm" dangerouslySetInnerHTML={{__html: whoWeAre.who_we_are}} />
               </div>}
             </Card>
 
@@ -364,7 +384,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
               <Form
                 onFinish={onFinishUpdateLabelling}
                 form={form}
-                initialValues={{id:privateLabelling.id}}>
+                initialValues={{id:privateLabelling.id, description:privateLabelling.private_labelling_description, imageUrl:privateLabelling.private_labelling_image}}>
                 <Form.Item name="private_label" label="Private Label">
                   <Editor
                     editorState={editor}
@@ -376,8 +396,19 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                     onEditorStateChange={onEditorStateChange}
                   />
                 </Form.Item>
+                <Form.Item name="description" label="Short description">
+                  <Input />
+                </Form.Item>
+                <Form.Item name="imageUrl" hidden>
+                  <Input />
+                </Form.Item>
                 <Form.Item name="id" hidden>
                   <Input />
+                </Form.Item>
+                <Form.Item label="Upload Image">
+                  <Upload onChange={handleChange} customRequest={dummyRequest}>
+                    <Button icon={<InboxOutlined />}>Upload Image</Button>
+                  </Upload>
                 </Form.Item>
                 <Form.Item {...tailLayout}>
                   <Button type="primary" htmlType="submit" loading={loading}>
@@ -386,8 +417,11 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                 </Form.Item>
               </Form>:
               <div>
-                <h3 className="text-blueGray-700 text-lg">Private Labelling </h3>
-                <p className="text-blueGray-700 text-xl font-bold" dangerouslySetInnerHTML={{__html: privateLabelling.private_labelling}} />
+                <img alt="image" style={{height:200}} src={`${imageUrl}settings/${privateLabelling.private_labelling_image}`}/>
+                <h3 className="text-blueGray-700 text-xl font-bold">Short Description</h3>
+                <p className="text-blueGray-700 text-sm">{privateLabelling.private_labelling_description}</p>
+                <h3 className="text-blueGray-700 text-xl font-bold">Private Labelling </h3>
+                <p className="text-blueGray-700 text-sm" dangerouslySetInnerHTML={{__html: privateLabelling.private_labelling}} />
               </div>}
             </Card>
 
@@ -409,8 +443,8 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
               {editResponsibility?
               <Form
                 onFinish={onFinishUpdateResponsibility}
-                form={form}
-                initialValues={{id:socialResponsibility.id}}>
+                form={forms}
+                initialValues={{id:socialResponsibility.id, description:socialResponsibility.social_res_description, imageUrl:socialResponsibility.social_res_image}}>
                 <Form.Item name="social_res" label="Social Responsibility">
                   <Editor
                     editorState={editor}
@@ -422,8 +456,19 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                     onEditorStateChange={onEditorStateChange}
                   />
                 </Form.Item>
+                <Form.Item name="description" label="Short description">
+                  <Input />
+                </Form.Item>
                 <Form.Item name="id" hidden>
                   <Input />
+                </Form.Item>
+                <Form.Item name="imageUrl" hidden>
+                  <Input />
+                </Form.Item>
+                <Form.Item label="Upload Image">
+                  <Upload onChange={handleChange} customRequest={dummyRequest}>
+                    <Button icon={<InboxOutlined />}>Upload Image</Button>
+                  </Upload>
                 </Form.Item>
                 <Form.Item {...tailLayout}>
                   <Button type="primary" htmlType="submit" loading={loading}>
@@ -432,8 +477,11 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                 </Form.Item>
               </Form>:
               <div>
-                <h3 className="text-blueGray-700 text-lg">Social Responsibility</h3>
-                <p className="text-blueGray-700 text-xl font-bold" dangerouslySetInnerHTML={{__html: socialResponsibility.social_res}} />
+                <img alt="image" style={{height:200}} src={`${imageUrl}settings/${socialResponsibility.social_res_image}`}/>
+                <h3 className="text-blueGray-700 text-xl font-bold">Short Description</h3>
+                <p className="text-blueGray-700 text-sm">{socialResponsibility.social_res_description}</p>
+                <h3 className="text-blueGray-700 text-xl font-bold">Social Responsibility</h3>
+                <p className="text-blueGray-700 text-sm" dangerouslySetInnerHTML={{__html: socialResponsibility.social_res}} />
               </div>}
             </Card>
             <Card
@@ -454,7 +502,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
               <Form
                 onFinish={onFinishUpdateContact}
                 form={form} {...layout}
-                initialValues={{email:contact.contactEmail, address:contact.contactAddress, name:contact.contactName, phone:about.contactPhone, id:"1"}}>
+                initialValues={{email:contact.contactEmail, address:contact.contactAddress, name:contact.contactName, phone:contact.contactPhone, id:"1", imageUrl:contact.contactImage}}>
                 <Form.Item name="name" label="Contact Name">
                   <Input />
                 </Form.Item>
@@ -470,6 +518,14 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                 <Form.Item name="id" hidden>
                   <Input />
                 </Form.Item>
+                <Form.Item name="imageUrl" hidden>
+                  <Input />
+                </Form.Item>
+                <Form.Item label="Upload Image">
+                  <Upload onChange={handleChange} customRequest={dummyRequest}>
+                    <Button icon={<InboxOutlined />}>Upload Image</Button>
+                  </Upload>
+                </Form.Item>
                 <Form.Item {...tailLayout}>
                   <Button type="primary" htmlType="submit" loading={loading}>
                     Update
@@ -477,14 +533,15 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                 </Form.Item>
               </Form>:
               <div>
-                <h3 className="text-blueGray-700 text-lg">Contact Name</h3>
-                <p className="text-blueGray-700 text-xl font-bold">{contact.contactName}</p>
-                <h3 className="text-blueGray-700 text-lg">Contact Email</h3>
-                <p className="text-blueGray-700 text-xl font-bold">{contact.contactEmail}</p>
-                <h3 className="text-blueGray-700 text-lg">COntact Address</h3>
-                <p className="text-blueGray-700 text-xl font-bold">{contact.contactAddress}</p>
-                <h3 className="text-blueGray-700 text-lg">Contact Phone Number</h3>
-                <p className="text-blueGray-700 text-xl font-bold">{contact.contactPhone}</p>
+                <img alt="image" style={{height:200}} src={`${imageUrl}settings/${contact.contact_image}`}/>
+                <h3 className="text-blueGray-700 text-xl font-bold">Contact Name</h3>
+                <p className="text-blueGray-700 text-sm">{contact.contactName}</p>
+                <h3 className="text-blueGray-700 text-xl font-bold">Contact Email</h3>
+                <p className="text-blueGray-700 text-sm">{contact.contactEmail}</p>
+                <h3 className="text-blueGray-700 text-xl font-bold">COntact Address</h3>
+                <p className="text-blueGray-700 text-sm">{contact.contactAddress}</p>
+                <h3 className="text-blueGray-700 text-xl font-bold">Contact Phone Number</h3>
+                <p className="text-blueGray-700 text-sm">{contact.contactPhone}</p>
               </div>}
             </Card>
           </Space>

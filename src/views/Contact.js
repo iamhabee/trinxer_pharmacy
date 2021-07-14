@@ -3,11 +3,14 @@ import Navbar from "components/Navbars/IndexNavbar.js";
 import Footer from "components/Footers/Footer.js";
 import ContactCard from "components/Cards/ContactCard";
 import ContactHeader from "components/Headers/ContactHeader";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { imageUrl } from "services/axios";
 
 export default function Contact() {
 
   const dispatch = useDispatch()
+  const data = useSelector(state => state.site)
+  const {about} = data
 
   useEffect(() => {
     dispatch({
@@ -24,8 +27,7 @@ export default function Contact() {
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')",
+              backgroundImage:`url(${imageUrl}settings/${about.contact_image})`,
             }}
           >
             <span

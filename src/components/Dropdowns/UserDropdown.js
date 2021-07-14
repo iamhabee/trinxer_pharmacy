@@ -2,6 +2,7 @@ import React from "react";
 import { createPopper } from "@popperjs/core";
 import { Avatar} from 'antd';
 import { connect } from "react-redux";
+import { imageUrl } from "services/axios";
 
 const mapStateToProps = ({user, dispatch}) =>({
   dispatch,
@@ -42,9 +43,7 @@ const UserDropdown = ({profile, dispatch}) => {
       >
         <div className="items-center flex">
           <span className="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
-            <Avatar style={{ backgroundColor: '#f56a00'}}>
-              {profile.firstName !== undefined && profile.firstName.slice(0, 1).toUpperCase()}
-            </Avatar>
+            <Avatar src={`${imageUrl}admin/${profile.image}`} />
           </span>
         </div>
       </a>

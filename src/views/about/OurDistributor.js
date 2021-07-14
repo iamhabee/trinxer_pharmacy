@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 // import { Link } from "react-router-dom";
-import { Steps } from 'antd';
-import { UserOutlined, SolutionOutlined, FlagOutlined, SmileOutlined,SketchOutlined } from '@ant-design/icons';
+// import { Steps } from 'antd';
+// import { UserOutlined, SolutionOutlined, FlagOutlined, SmileOutlined,SketchOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { List, Card, Descriptions} from 'antd';
 import MapExample from "components/Maps/MapExample";
@@ -9,7 +9,7 @@ import MapExample from "components/Maps/MapExample";
 
 export default function OurDistributor() {
 
-  const { Step } = Steps;
+  // const { Step } = Steps;
   const dispatch = useDispatch()
   const data = useSelector(state => state.site)
   const {distributors, loading} = data
@@ -22,7 +22,7 @@ export default function OurDistributor() {
     })
     dispatch({
       type:"site/SET_STATE",
-      payload:{title:"OFFICES"}
+      payload:{title:"Our Distributors"}
     })
   }, [])
 
@@ -64,13 +64,13 @@ export default function OurDistributor() {
                     )}
                   />
                 </Card>
-                <Steps>
+                {/* <Steps>
                   <Step status="finish" title="Asia" icon={<UserOutlined />} />
                   <Step status="finish" title="Europe" icon={<SolutionOutlined />} />
                   <Step status="process" title="Latin America" icon={<FlagOutlined />} />
                   <Step status="wait" title="Mena" icon={<SmileOutlined />} />
                   <Step status="wait" title="SS Africa" icon={<SketchOutlined />} />
-                </Steps>
+                </Steps> */}
                 <div className="mt-10">
                   <MapExample />
                 </div>

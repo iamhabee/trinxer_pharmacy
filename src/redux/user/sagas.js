@@ -47,7 +47,6 @@ export function* CURRENT_USER() {
       },
     })
   }
-  
 }
 
 export function* GET_STATS() {

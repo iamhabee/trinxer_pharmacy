@@ -1,11 +1,13 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import { Input, Modal, Button, Form, Avatar, Skeleton, Result, Select} from 'antd';
+import { Input, Modal, Button, Form, Avatar,Upload, Skeleton, Result, Select, Image} from 'antd';
 import { ExclamationCircleOutlined, SmileOutlined } from '@ant-design/icons';
+import { InboxOutlined} from '@ant-design/icons'
 // components
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 import { connect } from "react-redux";
+import { imageUrl } from "services/axios";
 
 const mapStateToProps = ({dispatch, admin, role}) =>({
   dispatch,
@@ -36,6 +38,7 @@ function AdminTable({ color, data, loading, dispatch, roles }) {
   const [form] = Form.useForm();
 	const {confirm} = Modal;
   const {Option} = Select
+  const [file, setFile] = useState("")
   
   const handleEdit = (value) =>{
     setShowEdit(true)
@@ -45,22 +48,40 @@ function AdminTable({ color, data, loading, dispatch, roles }) {
       lastName: value.lastName,
       middleName: value.middleName,
       adminId: value.adminId,
-      roleId:value.roleId
+      roleId:value.roleId,
+      imageUrl:value.image
     })
   }
 
   const onFinishEdit = (value) =>{
+    const fd = new FormData();
+    fd.append('adminId', value.adminId)
+    fd.append('roleId', value.roleId)
+    fd.append('lastName', value.lastName)
+    fd.append('firstName', value.firstName)
+    fd.append('middleName', value.middleName)
+    fd.append('imageUrl', value.imageUrl)
+    fd.append('image', file);
 		dispatch({
       type:"admin/UPDATE_ADMIN",
-      payload:value
+      payload:fd
     })
 		setShowEdit(false)
+    setFile("")
 	}
 
   const onFinishAdd = (value) =>{
+    const fd = new FormData();
+    fd.append('roleId', value.roleId)
+    fd.append('lastName', value.lastName)
+    fd.append('firstName', value.firstName)
+    fd.append('middleName', value.middleName)
+    fd.append('email', value.email)
+    fd.append('password', value.password)
+    fd.append('image', file);
 		dispatch({
       type:"admin/CREATE_ADMIN",
-      payload:value
+      payload:fd
     })
 		setShowAdd(false)
 	}
@@ -107,6 +128,27 @@ function AdminTable({ color, data, loading, dispatch, roles }) {
 		  },
 		});
 	}
+
+  const getBase64 = (img, callback) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+  }
+
+  const handleChange = info => {
+    if (info.file.status === 'done') {
+      // Get this url from response in real world.
+      getBase64(info.file.originFileObj, imageUrl =>{
+        setFile(info.file.originFileObj)
+      });
+    }
+  };
+
+  const dummyRequest = ({onSuccess}) =>{
+    setTimeout(()=>{
+      onSuccess("ok");
+    }, 0)
+  }
 
   return (
     <>
@@ -210,9 +252,7 @@ function AdminTable({ color, data, loading, dispatch, roles }) {
               ( datum =>(
               <tr key={datum.adminId}>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                  <Avatar style={{ backgroundColor: '#f56a00'}}>
-                    {datum.firstName.slice(0, 1).toUpperCase()}
-                  </Avatar>{" "}
+                  <Avatar src={<Image src={`${imageUrl}admin/${datum.image}`} />} />{" "}
                   <span
                     className={
                       "ml-3 font-bold " +
@@ -272,7 +312,7 @@ function AdminTable({ color, data, loading, dispatch, roles }) {
         footer={null} 
         onCancel={() => setShowEdit(false)}
       >
-        <Form onFinish={onFinishEdit} form={form}>
+        <Form onFinish={onFinishEdit} form={form} {...layout}>
           <Form.Item name="roleId" label="Select Role">
             <Select
               placeholder="Select Role"
@@ -281,7 +321,7 @@ function AdminTable({ color, data, loading, dispatch, roles }) {
               {roles.map(role => <Option key={role.roleId} value={role.roleId}>{role.roleName}</Option>)}
             </Select>
           </Form.Item>
-          <Form.Item name="email" label="E-mail">
+          <Form.Item name="email" hidden>
             <Input /> 
           </Form.Item>
           <Form.Item name="firstName" label="First Name">
@@ -296,7 +336,15 @@ function AdminTable({ color, data, loading, dispatch, roles }) {
           <Form.Item name="adminId" hidden>
             <Input />
           </Form.Item>
-          <Form.Item>
+          <Form.Item name="imageUrl" hidden>
+            <Input />
+          </Form.Item>
+          <Form.Item label="Upload Image">
+            <Upload onChange={handleChange} customRequest={dummyRequest}>
+              <Button icon={<InboxOutlined />}>Upload Image</Button>
+            </Upload>
+          </Form.Item>
+          <Form.Item {...tailLayout}>
             <Button type="primary" htmlType="submit" loading={loading}>
                 Update
             </Button>
@@ -336,6 +384,11 @@ function AdminTable({ color, data, loading, dispatch, roles }) {
           </Form.Item>
           <Form.Item name="password" label="Password">
             <Input type="password" />
+          </Form.Item>
+          <Form.Item label="Upload Image">
+            <Upload onChange={handleChange} customRequest={dummyRequest}>
+              <Button icon={<InboxOutlined />}>Upload Image</Button>
+            </Upload>
           </Form.Item>
           <Form.Item {...tailLayout}>
             <Button type="primary" htmlType="submit" loading={loading}>

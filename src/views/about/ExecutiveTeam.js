@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { Link } from "react-router-dom";
 import { List, Card} from 'antd';
+import { imageUrl } from "services/axios";
 
 export default function ExecutiveTeam() {
   const dispatch = useDispatch()
@@ -54,7 +55,7 @@ export default function ExecutiveTeam() {
                             width={250}
                             style={{height:150}}
                             alt="logo"
-                            src='/images/team1.jpg'
+                            src={`${imageUrl}admin/${item.image}`}
                           />
                         }
                       >

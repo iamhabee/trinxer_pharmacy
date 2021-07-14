@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {Form, Input, Button} from 'antd'
+import { imageUrl } from "services/axios";
 // import Navbar from "components/Navbars/AuthNavbar.js";
 // import Footer from "components/Footers/Footer.js";
 
@@ -29,7 +30,6 @@ function Profile({dispatch, profile, loading}) {
 
   const [editState, setEditState] = useState(true)
   const [form] = Form.useForm();
-
   useEffect(() => {
     dispatch({
       type:"user/CURRENT_USER"
@@ -58,7 +58,7 @@ function Profile({dispatch, profile, loading}) {
                   <div className="relative">
                     <img
                       alt="..."
-                      src={require("assets/img/team-3-800x800.jpg").default}
+                      src={`${imageUrl}admin/${profile.image}`}
                       className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
                     />
                   </div>
