@@ -9,7 +9,7 @@ import FooterSmall from "components/Footers/FooterSmall.js";
 // views
 
 import Login from "views/auth/Login.js";
-import Register from "views/auth/Register.js";
+// import Register from "views/auth/Register.js";
 
 export default function Auth() {
   return (
@@ -18,15 +18,11 @@ export default function Auth() {
       <main>
         <section className="relative w-full h-full py-20 min-h-screen">
           <div
-            className="absolute top-0 w-full h-full bg-blueGray-800 bg-no-repeat bg-full"
-            style={{
-              backgroundImage:
-                "url(" + require("assets/img/register_bg_2.png").default + ")",
-            }}
+            className="absolute top-0 w-full h-full bg-lightBlue-700 bg-full"
           ></div>
           <Switch>
             <Route path="/auth/login" exact component={Login} />
-            <Route path="/auth/register" exact component={Register} />
+            {/* <Route path="/auth/register" exact component={Register} /> */}
             <Redirect from="/auth" to="/auth/login" />
           </Switch>
           <FooterSmall absolute />

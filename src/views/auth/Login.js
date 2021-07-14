@@ -32,7 +32,7 @@ function Login({dispatch, loading}) {
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                 <div className="text-blueGray-400 text-center mt-3 mb-3 font-bold">
-                  <h5>Sign in with your credentials</h5>
+                  <h3 className="text-2xl">Sign in with your credentials</h3>
                 </div>
                 <form onSubmit={(e)=>handleSubmit(e)}>
                   <div className="relative w-full mb-3">
