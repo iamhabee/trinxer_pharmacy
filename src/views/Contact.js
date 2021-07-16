@@ -37,15 +37,19 @@ export default function Contact() {
           </div>
           <div className="container relative mx-auto">
             <div className="items-center flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+              <div className="w-full px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-5xl">
                     Contact Us.
                   </h1>
-                  <p className="mt-4 text-lg text-blueGray-200">
-                    This is a simple example of a Landing Page you can build
-                    using Notus React. It features multiple CSS components based
-                    on the Tailwind CSS design system.
+                  <p className="mt-4 text-lg text-white">
+                    {about.contactAddress}
+                  </p>
+                  <p className="mt-4 text-lg text-white">
+                    {about.contactEmail}
+                  </p>
+                  <p className="mt-4 text-lg text-white">
+                    {about.contactPhone}
                   </p>
                 </div>
               </div>

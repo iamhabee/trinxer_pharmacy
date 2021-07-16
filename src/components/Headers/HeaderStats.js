@@ -23,7 +23,7 @@ function HeaderStats({stats, dispatch}) {
           <div>
             {/* Card stats */}
             <div className="flex flex-wrap">
-              <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
+              {/* <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
                 <CardStats
                   statSubtitle="Visitors"
                   statTitle={stats.visitors}
@@ -34,8 +34,8 @@ function HeaderStats({stats, dispatch}) {
                   statIconName="fas fa-users"
                   statIconColor="bg-red-500"
                 />
-              </div>
-              <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
+              </div> */}
+              <div className="w-full lg:w-6/12 xl:w-6/12 px-4">
                 <CardStats
                   statSubtitle="Blog Posts"
                   statTitle={stats.post}
@@ -47,7 +47,7 @@ function HeaderStats({stats, dispatch}) {
                   statIconColor="bg-orange-500"
                 />
               </div>
-              <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
+              <div className="w-full lg:w-6/12 xl:w-6/12 px-4">
                 <CardStats
                   statSubtitle="Admin/Staffs"
                   statTitle={stats.admin}

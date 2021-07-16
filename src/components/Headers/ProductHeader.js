@@ -1,16 +1,16 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { imageUrl } from 'services/axios'
 
 const ProductHeader = () => {
   const data = useSelector(state => state.site)
-  const {categoryDescription, title} = data
+  const {categoryDescription, title, about} = data
     return (
         <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')",
+              backgroundImage:`url(${imageUrl}settings/${about.headerImagePath})`
             }}
           >
             <span
@@ -20,7 +20,7 @@ const ProductHeader = () => {
           </div>
           <div className="container relative mx-auto">
             <div className="items-center flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+              <div className="w-full px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-4xl">
                     {title}
