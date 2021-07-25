@@ -11,6 +11,7 @@ const initialState = {
   messageLoading:false,
   title:"About Us",
   products:[],
+  singleProduct:{},
   categoriesProduct:[],
   categoryName:"",
   categoryDescription:"",

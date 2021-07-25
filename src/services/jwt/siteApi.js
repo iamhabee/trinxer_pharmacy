@@ -1,9 +1,9 @@
-import axios from 'axios'
+// import axios from 'axios'
 // import { history } from 'index'
 // import apiClient from '../axios'
 // import store from 'store'
 
-const siteURL = 'https://pharma-app.herokuapp.com/api/v1/site/'
+const siteURL = 'https://143.244.181.77:3000/api/v1/site/'
 
 export async function publicBlogs(payload) {
     try {
@@ -122,6 +122,17 @@ export const sendReply = async(payload) =>{
           headers:{'Content-Type': 'application/json'},
           body: JSON.stringify(payload)
       });
+      let data = await response.json();
+      return data
+    } catch(err) {
+      // catches errors both in fetch and response.json
+      console.log(err);
+    }
+}
+
+export const fetchSingleProduct = async(id) =>{
+  try {
+      let response = await fetch(`${siteURL}product/${id}`);
       let data = await response.json();
       return data
     } catch(err) {

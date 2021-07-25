@@ -134,6 +134,7 @@ export default function Landing() {
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-lightBlue-500">
                   <img
                     alt="..."
+                    style={{height:250}}
                     src={`${imageUrl}settings/${about.social_res_image}`}
                     className="w-full align-middle rounded-t-lg"
                   />
@@ -171,6 +172,7 @@ export default function Landing() {
                 <img
                   alt="..."
                   className="max-w-full rounded-lg shadow-lg"
+                  style={{height:250}}
                   src={`${imageUrl}settings/${about.private_labelling_image}`}
                 />
               </div>

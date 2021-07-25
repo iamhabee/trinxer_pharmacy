@@ -3,7 +3,7 @@ import { history } from 'index'
 // import store from 'store'
 // import { notification } from 'antd'
 
-export const imageUrl = "https://pharma-app.herokuapp.com/images/"
+export const imageUrl = "https://143.244.181.77:3000/images/"
 
 export const numberFormat = (value) =>
   new Intl.NumberFormat("en-NG", {
@@ -12,7 +12,7 @@ export const numberFormat = (value) =>
   }).format(value);
 
 const apiClient = axios.create({
-  baseURL: 'https://pharma-app.herokuapp.com/api/v1/admin/',
+  baseURL: 'https://143.244.181.77:3000/api/v1/admin/',
   // timeout: 1000,
   // headers: { 'X-Custom-Header': 'foobar' }
 })

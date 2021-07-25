@@ -12,6 +12,7 @@ import { history } from "index";
 import Category from "views/products/Category";
 import ProductsCategory from "views/products/Products";
 import { useDispatch } from "react-redux";
+import SingleProduct from "views/products/SingleProduct";
 
 export default function Product() {
 
@@ -38,7 +39,7 @@ export default function Product() {
                 <Switch>
                   <Route path="/products/category" exact component={ProductsCategory} />
                   <Route path="/products/:type/:name/:id" exact component={Category} />
-                  {/* <Route path="/products/cosmetics" exact component={Cosmetics} /> */}
+                  <Route path="/products/single/product/:name/:productId" exact component={SingleProduct} />
                   <Redirect from="/products" to="/products/category" />
                 </Switch>
               </Router>

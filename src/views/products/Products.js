@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { imageUrl } from "services/axios";
 import { Result, Button, Skeleton} from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
+import { Link } from "react-router-dom";
 
 
 export default function ProductsPage() {
@@ -34,18 +35,20 @@ export default function ProductsPage() {
               title="Ooops there are currently no products under this category"
             />:
             products.map( (product, index)=>(
-            <div className={`g:pt-12 pt-${(index+1) % 2 === 0? "4": "6"} w-full md:w-4/12 px-4 text-center hover:-mt-4 ease-linear transition-all duration-150`} key={index}>
-              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                <div className="px-4 py-5 flex-auto">
-                  {/* <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400"> */}
-                    <img className="align-middle border-none max-w-full h-auto rounded-lg" src={`${imageUrl}products/${product.imageUrl}`} style={{height:200, width:200}}/>
-                  {/* </div> */}
-                  <h6 className="text-xl font-semibold">{product.name}</h6>
-                  <p className="mt-2 mb-4 text-blueGray-500">
-                    {product.description}
-                  </p>
+            <div className="pt-4 w-full md:w-4/12 px-4 text-center hover:-mt-4 ease-linear transition-all duration-150" key={index}>
+              <Link to={`/products/single/product/${product.name}/${product.productId}`}>
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                  <div className="px-4 py-5 flex-auto">
+                    {/* <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400"> */}
+                      <img className="align-middle border-none max-w-full h-auto rounded-lg" src={`${imageUrl}products/${product.imageUrl}`} style={{height:200, width:200}}/>
+                    {/* </div> */}
+                    <h6 className="text-xl font-semibold">{product.name}</h6>
+                    <p className="mt-2 mb-4 text-blueGray-500">
+                      {product.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>))}
           </div>
         </div>

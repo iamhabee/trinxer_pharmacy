@@ -59,6 +59,33 @@ export function* PRODUCTS() {
   }
 }
 
+export function* SINGLE_PRODUCT({payload}) {
+  yield put({
+    type: 'site/SET_STATE',
+    payload: {
+      loading: true,
+    },
+  })
+  const success = yield call(jwt.fetchSingleProduct, payload)
+  if (success && success.status) {
+    yield put({
+      type: 'site/SET_STATE',
+      payload: {
+        loading: false,
+        singleProduct:success.data
+      },
+    })
+  }
+  if (!success || !success.status) {
+    yield put({
+      type: 'site/SET_STATE',
+      payload: {
+        loading: false,
+      },
+    })
+  }
+}
+
 export function* CATEGORIES_PRODUCT({payload}) {
   yield put({
     type: 'site/SET_STATE',
@@ -270,6 +297,7 @@ export default function* rootSaga() {
     takeEvery(actions.TEAM, TEAM),
     takeEvery(actions.SERVICES, SERVICES),
     takeEvery(actions.PRODUCTS, PRODUCTS),
+    takeEvery(actions.SINGLE_PRODUCT, SINGLE_PRODUCT),
     takeEvery(actions.OFFICES, OFFICES),
     takeEvery(actions.DISTRIBUTORS, DISTRIBUTORS),
     takeEvery(actions.CATEGORIES_PRODUCT, CATEGORIES_PRODUCT),

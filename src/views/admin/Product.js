@@ -74,6 +74,7 @@ function ProductPage({dispatch, categories, products, loading}) {
     fd.append('categoryId', val.categoryId)
     fd.append('productId', val.productId)
     fd.append('image', file);
+    fd.append('imageUrl', val.imageUrl);
     dispatch({
       type:'product/UPDATE_PRODUCT',
       payload:fd

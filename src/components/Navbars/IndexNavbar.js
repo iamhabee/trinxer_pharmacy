@@ -50,7 +50,7 @@ export default function Navbar() {
               to="/"
               className="whitespace-nowrap"
             >
-              <img src="/images/logo/logo.jpg" style={{height:50}} />
+              <img src="/images/logo/logo.png" style={{height:50}} />
             </Link>
             <button
               className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
@@ -97,11 +97,11 @@ export default function Navbar() {
       </nav>
       <a
         href={`https://wa.me/${about.contactPhone}`}
-        class="whatsapp_float"
+        className="whatsapp_float"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <i class="fas fa-comments whatsapp-icon"></i>
+        <i className="fas fa-comments whatsapp-icon"></i>
       </a>
     </>
   );
