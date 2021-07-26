@@ -134,7 +134,6 @@ export default function Landing() {
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-lightBlue-500">
                   <img
                     alt="..."
-                    style={{height:250}}
                     src={`${imageUrl}settings/${about.social_res_image}`}
                     className="w-full align-middle rounded-t-lg"
                   />
@@ -168,11 +167,10 @@ export default function Landing() {
 
           <div className="container mx-auto px-4">
             <div className="items-center flex flex-wrap">
-              <div className="w-full md:w-4/12 ml-auto mr-auto px-4">
+              <div className="w-full md:w-4/12 ml-auto mr-auto px-4" style={{height:250}}>
                 <img
                   alt="..."
                   className="max-w-full rounded-lg shadow-lg"
-                  style={{height:250}}
                   src={`${imageUrl}settings/${about.private_labelling_image}`}
                 />
               </div>
@@ -223,7 +221,9 @@ export default function Landing() {
                   </div>
                 </div>
               </div>))}
-              <Link to="/about/executive-team" className="font-bold align-center text-blueGray-700 mt-8">
+            </div>
+            <div className="w-full flex justify-center mt-20">
+              <Link to="/about/executive-team">
                 <button className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
                   view all
                 </button>

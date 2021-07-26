@@ -3,7 +3,7 @@
 // import apiClient from '../axios'
 // import store from 'store'
 
-const siteURL = 'https://143.244.181.77:3000/api/v1/site/'
+const siteURL = 'https://trinxer.tk/api/v1/site/'
 
 export async function publicBlogs(payload) {
     try {
