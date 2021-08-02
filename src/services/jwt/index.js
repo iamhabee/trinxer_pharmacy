@@ -181,9 +181,9 @@ export async function updateProfile(data) {
 }
 
 // all blogs api
-export async function allBlogs() {
+export async function allBlogs(payload) {
   return apiClient
-    .get('/blogPost')
+    .get(`/blogPost?limit=${payload.limit}&offset=${payload.offset}`)
     .then(response => {
       if (response) {
         const { data, status } = response
@@ -389,9 +389,9 @@ export async function createCategory(data) {
 }
 
 // get all product api
-export async function allProducts() {
+export async function allProducts(payload){
   return apiClient
-    .get('/product')
+    .get(`/product?limit=${payload.limit}&offset=${payload.offset}`)
     .then(response => {
       if (response) {
         const { data, status } = response

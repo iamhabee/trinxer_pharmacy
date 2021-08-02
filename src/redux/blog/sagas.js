@@ -29,7 +29,7 @@ export function* PUBLIC_BLOGS({payload}) {
   const { public_blogs: publicBlogs } = yield select(state => state.blog)
    const success = yield call(jwt.publicBlogs, payload)
   if (success.status) {
-    const more = publicBlogs.concat(success.data)
+    const more = publicBlogs.concat(success.data.rows)
     yield put({
       type: 'blog/SET_STATE',
       payload: {
@@ -153,19 +153,20 @@ export function* VIEW_BLOG({payload}) {
   })
 }
 
-export function* ALL_BLOGS() {
+export function* ALL_BLOGS({payload}) {
   yield put({
     type: 'blog/SET_STATE',
     payload: {
       loading: true,
     },
   })
-   const success = yield call(jwt.allBlogs)
+   const success = yield call(jwt.allBlogs, payload)
   if (success.status) {
     yield put({
       type: 'blog/SET_STATE',
       payload: {
-        blogs:success.data,
+        blogs:success.data.rows,
+        totalBlog:success.data.count,
         loading: false,
       },
     })

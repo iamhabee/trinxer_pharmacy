@@ -6,7 +6,8 @@ const initialState = {
   public_blogs:[],
   single_blog:{},
   recent_blogs:[],
-  replyLoading:false
+  replyLoading:false,
+  totalBlog:0
 }
 
 export default function blogReducer(state = initialState, action) {

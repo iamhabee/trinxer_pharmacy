@@ -2,6 +2,7 @@ import actions from './actions'
 
 const initialState = {
   products: [],
+  totalProduct:0,
   loading: false,
 }
 

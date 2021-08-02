@@ -11,6 +11,7 @@ const mapStateToProps =({dispatch, category, product}) =>({
   dispatch,
   categories:category.categories,
   products:product.products,
+  totalProduct:product.totalProduct,
   loading:product.loading
 })
 
@@ -29,7 +30,7 @@ const tailLayout = {
   },
 };
 
-function ProductPage({dispatch, categories, products, loading}) {
+function ProductPage({dispatch, categories, products, loading, totalProduct}) {
 
   const [addModal, setAddModal] = useState(false)
   const [editProduct, setEditProduct] = useState(false)
@@ -196,6 +197,7 @@ function ProductPage({dispatch, categories, products, loading}) {
               </div>
               <Table columns={columns} loading={loading} pagination={false} dataSource={products} rowKey="productId" />
               <Pagination
+                total={totalProduct}
                 responsive={true}
                 defaultCurrent={1}
                 onChange={handlePagination}

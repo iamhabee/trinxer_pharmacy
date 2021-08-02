@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { List, Avatar, Space, Card, Form, Upload, Button, Input, Drawer, Modal } from 'antd';
+import { List, Avatar, Space, Card, Form, Upload, Button, Input, Drawer, Modal, Pagination } from 'antd';
 import { InboxOutlined, MessageOutlined, EditOutlined, ShareAltOutlined, ExclamationCircleOutlined, EyeOutlined, DeleteOutlined} from '@ant-design/icons'
 
 // import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
@@ -14,9 +14,10 @@ import { imageUrl } from "services/axios";
 const mapStateToProps =({dispatch, blog}) =>({
   dispatch,
   blogs:blog.blogs,
+  totalBlog:blog.totalBlog,
   loading:blog.loading
 })
-function BlogsPage({dispatch, blogs, loading}) {
+function BlogsPage({dispatch, blogs, loading, totalBlog}) {
 
   const getHtml = editorState => draftToHtml(convertToRaw(editorState.getCurrentContent()));
   const [editor, setEditor] = useState("")
@@ -31,7 +32,8 @@ function BlogsPage({dispatch, blogs, loading}) {
 
   useEffect(() => {
     dispatch({
-      type:"blog/ALL_BLOGS"
+      type:"blog/ALL_BLOGS",
+      payload:{offset:0, limit:20}
     })
     dispatch({
       type:"user/CURRENT_USER"
@@ -156,6 +158,13 @@ function BlogsPage({dispatch, blogs, loading}) {
 		});
 	}
 
+  const handlePagination = (page, pageSize) =>{
+    dispatch({
+      type:"blog/ALL_BLOGS",
+      payload:{offset:0, limit:20}
+    })
+  }
+
   const handleDelete = (id)=>{
     dispatch({
       type:"blog/DELETE_BLOG",
@@ -190,12 +199,7 @@ function BlogsPage({dispatch, blogs, loading}) {
                 <List
                   itemLayout="vertical"
                   size="large"
-                  pagination={{
-                    onChange: page => {
-                      console.log(page);
-                    },
-                    pageSize: 3,
-                  }}
+                  pagination={false}
                   dataSource={blogs}
                   renderItem={item => (
                     <List.Item
@@ -229,6 +233,13 @@ function BlogsPage({dispatch, blogs, loading}) {
                       <span className="font-bold lowercase">status: {item.status}</span>
                     </List.Item>
                   )}
+                />
+                <Pagination
+                  total={totalBlog}
+                  responsive={true}
+                  defaultCurrent={1}
+                  onChange={handlePagination}
+                  defaultPageSize={20}
                 />
               </Card>
             </div>

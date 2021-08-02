@@ -4,19 +4,20 @@ import { message } from 'antd'
 import { store as reduxStore  } from 'index'
 import actions from './actions'
 
-export function* ALL_PRODUCTS() {
+export function* ALL_PRODUCTS({payload}) {
   yield put({
     type: 'product/SET_STATE',
     payload: {
       loading: true,
     },
   })
-  const success = yield call(jwt.allProducts)
+  const success = yield call(jwt.allProducts, payload)
   if (success.status) {
     yield put({
       type: 'product/SET_STATE',
       payload: {
-        products:success.data,
+        products:success.data.rows,
+        totalProduct:success.data.count,
         loading: false,
       },
     })
