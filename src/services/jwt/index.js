@@ -420,6 +420,22 @@ export async function updateProduct(data) {
     .catch(err => console.log(err))
 }
 
+// delete product api
+export async function deleteProduct(id) {
+  return apiClient
+    .delete(`/product/${id}`)
+    .then(response => {
+      if (response) {
+        const { data, status } = response
+        if (status) {
+          return data
+        }
+      }
+      return false
+    })
+    .catch(err => console.log(err))
+}
+
 // create product api
 export async function createProduct(data) {
   return apiClient

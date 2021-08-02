@@ -22,7 +22,7 @@ const Topbar = () => {
             {about.contactEmail}
           </a>
           <div >
-            <a target="_blank" href="#">
+            <a target="_blank" href={about.twitter}>
               <button
                 className="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                 type="button"
@@ -30,7 +30,7 @@ const Topbar = () => {
                 <i className="fab fa-twitter"></i>
               </button>
             </a>
-            <a target="_blank" href="https://www.facebook.com/Trinxer-Pharmaceutical-Switzerland-107327381633230">
+            <a target="_blank" href={about.facebook}>
               <button
                 className="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                 type="button"
@@ -38,7 +38,7 @@ const Topbar = () => {
                 <i className="fab fa-facebook-square"></i>
               </button>
             </a>
-            <a target="_blank" href="https://www.linkedin.com/company/trinxer-pharmaceutical-switzerland/about/?viewAsMember=true">
+            <a target="_blank" href={about.linkedIn}>
               <button
                 className="bg-white text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                 type="button"
@@ -46,12 +46,12 @@ const Topbar = () => {
                 <i className="fab fa-linkedin"></i>
               </button>
             </a>
-            <a target="_blank" href="#">
+            <a target="_blank" href={about.instagram}>
               <button
                 className="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                 type="button"
               >
-                <i className="fab fa-github"></i>
+                <i className="fab fa-instagram"></i>
               </button>
             </a>
           </div>

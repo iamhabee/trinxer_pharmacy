@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Table, Form, Button, Upload, Input, Modal, Space, Select } from 'antd';
-import { InboxOutlined} from '@ant-design/icons'
+import { Table, Form, Button, Upload, Input, Modal, Space, Select, Pagination } from 'antd';
+import { InboxOutlined, ExclamationCircleOutlined} from '@ant-design/icons'
 
 
 import { connect } from "react-redux";
@@ -37,13 +37,15 @@ function ProductPage({dispatch, categories, products, loading}) {
   const [form] = Form.useForm();
   const [forms] = Form.useForm();
   const {Option} = Select
+	const {confirm} = Modal;
 
   useEffect(() => {
     dispatch({
       type:"category/ALL_CATEGORIES"
     })
     dispatch({
-      type:"product/ALL_PRODUCTS"
+      type:"product/ALL_PRODUCTS",
+      payload:{limit:20, offset:0}
     })
     dispatch({
       type:"user/CURRENT_USER"
@@ -96,6 +98,34 @@ function ProductPage({dispatch, categories, products, loading}) {
     })
   }
 
+  const confirmAction = (id) => {
+		confirm({
+		  title: `Are you sure you want to delete this product?`,
+		  icon: <ExclamationCircleOutlined />,
+		  content: 'Click Ok to continue',
+		  onOk() {
+			handleDelete(id)
+		  },
+		  onCancel() {
+			console.log('Cancel');
+		  },
+		});
+	}
+
+  const handleDelete = (id) =>{
+    dispatch({
+      type:'product/DELETE_PRODUCT',
+      payload:id
+    })
+  }
+
+  const handlePagination = (page, pageSize) =>{
+    dispatch({
+      type:"product/ALL_PRODUCTS",
+      payload:{limit:20, offset:page * 20}
+    })
+  }
+
   const columns = [
     {
       title: 'Image',
@@ -116,11 +146,12 @@ function ProductPage({dispatch, categories, products, loading}) {
     },
     {
       title: 'Action',
-      key: 'action',
-      render: (text, record) => (
+      dataIndex: 'productId',
+      key: 'productId',
+      render: (id, record) => (
         <Space size="middle">
           <Button type="ghost" onClick={()=>handleEdit(record)}>Edit </Button>
-          {/* <Button type="danger">Delete</Button> */}
+          <Button type="danger" onClick={()=>confirmAction(id)}>Delete</Button>
         </Space>
       ),
     },
@@ -163,7 +194,13 @@ function ProductPage({dispatch, categories, products, loading}) {
                   Create New Product
                 </button>
               </div>
-              <Table columns={columns} loading={loading} dataSource={products} rowKey="productId" />
+              <Table columns={columns} loading={loading} pagination={false} dataSource={products} rowKey="productId" />
+              <Pagination
+                responsive={true}
+                defaultCurrent={1}
+                onChange={handlePagination}
+                defaultPageSize={20}
+              />
             </div>
           </div>
         </div>

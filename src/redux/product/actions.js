@@ -3,6 +3,7 @@ const actions = {
   ALL_PRODUCTS: 'product/ALL_PRODUCTS',
   UPDATE_PRODUCT: 'product/UPDATE_PRODUCT',
   CREATE_PRODUCT: 'product/CREATE_PRODUCT',
+  DELETE_PRODUCT: 'product/DELETE_PRODUCT',
 }
 
 export default actions

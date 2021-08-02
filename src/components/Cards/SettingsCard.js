@@ -82,6 +82,10 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
     fd.append('email', value.email)
     fd.append('address', value.address)
     fd.append('phone', value.phone)
+    fd.append('facebook', value.facebook)
+    fd.append('instagram', value.instagram)
+    fd.append('twitter', value.twitter)
+    fd.append('linkedIn', value.linkedIn)
     fd.append('imageUrl', value.imageUrl)
     fd.append('image', file);
 		dispatch({
@@ -502,7 +506,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
               <Form
                 onFinish={onFinishUpdateContact}
                 form={form} {...layout}
-                initialValues={{email:contact.contactEmail, address:contact.contactAddress, name:contact.contactName, phone:contact.contactPhone, id:"1", imageUrl:contact.contactImage}}>
+                initialValues={{email:contact.contactEmail, address:contact.contactAddress, name:contact.contactName, phone:contact.contactPhone, id:"1", imageUrl:contact.contactImage, facebook:contact.facebook, twitter:contact.twitter, instagram:contact.instagram, linkedIn:contact.linkedIn}}>
                 <Form.Item name="name" label="Contact Name">
                   <Input />
                 </Form.Item>
@@ -513,6 +517,18 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                   <Input />
                 </Form.Item>
                 <Form.Item name="phone" label="Phone">
+                  <Input />
+                </Form.Item>
+                <Form.Item name="facebook" label="Facebook url">
+                  <Input />
+                </Form.Item>
+                <Form.Item name="twitter" label="Twitter url">
+                  <Input />
+                </Form.Item>
+                <Form.Item name="instagram" label="Instagram url">
+                  <Input />
+                </Form.Item>
+                <Form.Item name="linkedIn" label="Linkedin url">
                   <Input />
                 </Form.Item>
                 <Form.Item name="id" hidden>
@@ -542,6 +558,11 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                 <p className="text-blueGray-700 text-sm">{contact.contactAddress}</p>
                 <h3 className="text-blueGray-700 text-xl font-bold">Contact Phone Number</h3>
                 <p className="text-blueGray-700 text-sm">{contact.contactPhone}</p>
+                <h3 className="text-blueGray-700 text-xl font-bold">Social Media</h3>
+                <a target="_blank" href={contact.facebook}><i className="fab fa-facebook-square"></i>Facebook</a>&nbsp; &nbsp;
+                <a target="_blank" href={contact.twitter}><i className="fab fa-twitter"></i> Twitter</a>&nbsp; &nbsp;
+                <a target="_blank" href={contact.linkedIn}><i className="fab fa-linkedin"></i>linkedin</a>&nbsp; &nbsp;
+                <a target="_blank" href={contact.instagram}><i className="fab fa-instagram"></i>instagram</a>
               </div>}
             </Card>
           </Space>
