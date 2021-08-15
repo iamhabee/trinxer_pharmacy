@@ -31,21 +31,22 @@ export function* ABOUT() {
   }
 }
 
-export function* PRODUCTS() {
+export function* PRODUCTS({payload}) {
   yield put({
     type: 'site/SET_STATE',
     payload: {
       loading: true,
     },
   })
-  const success = yield call(jwt.fetchProducts)
+  const success = yield call(jwt.fetchProducts, payload)
   
   if (success && success.status) {
     yield put({
       type: 'site/SET_STATE',
       payload: {
         loading: false,
-        products:success.data
+        products:success.data.rows,
+        totalProducts:success.data.count
       },
     })
   }

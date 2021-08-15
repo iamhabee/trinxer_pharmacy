@@ -45,12 +45,12 @@ export default function Landing() {
           </div>
           <div className="container relative mx-auto">
             <div className="items-center flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+              <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-5xl">
                     {about.headerCaption}
                   </h1>
-                  <p className="mt-4 text-lg text-blueGray-200">
+                  <p className="mt-4 text-lg text-blueGray-200 capitalize">
                     {about.headerText}
                   </p>
                 </div>

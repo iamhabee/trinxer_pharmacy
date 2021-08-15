@@ -2,7 +2,7 @@ import { Skeleton } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { imageUrl } from "services/axios";
+import { imageUrl, pdfUrl } from "services/axios";
 
 export default function SingleProduct() {
 
@@ -31,15 +31,10 @@ export default function SingleProduct() {
         <div className="container mx-auto px-4 pb-32 pt-48">
           {loading && <Skeleton active />}
           <div className="items-center flex flex-wrap">
-            <div className="w-full md:w-12/12 mr-auto px-4 pt-5 md:pt-0">
+            <div className="w-full md:w-12/12 mr-auto md:pt-0" style={{height:400, width:400}}>
               <img
                 alt="..."
-                className="max-w-full rounded-lg shadow-xl"
-                style={{
-                  transform:
-                    "scale(1) perspective(550px) rotateY(-11deg) rotateX(2deg) rotate(2deg)",
-                    height:300
-                }}
+                className="rounded-lg shadow-xl"
                 src={`${imageUrl}products/${singleProduct.imageUrl}`}
               />
             </div>
@@ -51,8 +46,14 @@ export default function SingleProduct() {
                 <p className="mt-4 text-sm font-bold leading-relaxed text-blueGray-600">
                   {singleProduct.description}
                 </p>
-                {singleProduct.detail}
+                <div className="mt-5" dangerouslySetInnerHTML={{__html: singleProduct.detail}} />
               </div>
+              {singleProduct.fileUrl &&
+              <a class="flex p-5" target="_blank" href={`${pdfUrl}products/${singleProduct.fileUrl}`} data-slimstat="3">
+                <div style={{width:50, height:50, marginRight:5}}>
+                  <img src="/images/pdf.png" alt="" />
+                </div>Download Attachment
+              </a>}
             </div>
           </div>
         </div>

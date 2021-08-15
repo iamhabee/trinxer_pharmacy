@@ -141,9 +141,9 @@ export const fetchSingleProduct = async(id) =>{
     }
 }
 
-export const fetchProducts = async() =>{
+export const fetchProducts = async(payload) =>{
   try {
-      let response = await fetch(`${siteURL}product`);
+      let response = await fetch(`${siteURL}product?limit=${payload.limit}&offset=${payload.offset}`);
       let data = await response.json();
       return data
     } catch(err) {

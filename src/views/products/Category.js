@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { imageUrl } from "services/axios";
-import { Result, Skeleton} from 'antd';
+import { Pagination, Result, Skeleton} from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
 
@@ -11,7 +11,8 @@ export default function ProductCategory() {
   const dispatch = useDispatch()
   const params = useParams()
   const data = useSelector(state => state.site)
-  const {categoriesProduct, products, loading} = data
+  const {categoriesProduct, products, loading, totalProducts} = data
+  // const parentCat = products.filter(product => params.id === product.parentCategoryId)
   const categories = params.type === "sub" ? categoriesProduct : products
   useEffect(() => {
     dispatch({
@@ -19,7 +20,8 @@ export default function ProductCategory() {
       payload:params.id
     })
     dispatch({
-      type:"site/PRODUCTS"
+      type:"site/PRODUCTS",
+      payload:{limit:20, offset:0}
     })
     dispatch({
       type:"site/ABOUT"
@@ -30,6 +32,13 @@ export default function ProductCategory() {
     })
     // eslint-disable-next-line
   }, [])
+
+  const handlePagination = (page, pageSize) =>{
+    dispatch({
+      type:"site/PRODUCTS",
+      payload:{limit:20, offset:(page-1 )* 20}
+    })
+  }
 
   return (
     <>
@@ -51,16 +60,24 @@ export default function ProductCategory() {
                       <div style={{height:200, width:200}}>
                         <img className="align-middle border-none max-w-full rounded-lg" src={`${imageUrl}products/${product.imageUrl}`}/>
                       </div>
-                      <h6 className="text-xl font-semibold">{product.name}</h6>
+                      <h6 className="text-xl font-semibold">{product.name && product.name.slice(0, 15)}...</h6>
                       <p className="mt-2 mb-4 text-blueGray-500">
-                        {product.description && product.description.slice(0, 50)}...
+                        {product.description && product.description.slice(0, 47)}...
                       </p>
                     </div>
                   </div>
                 </Link>
               </div>
-              ))}
+            ))}
           </div>
+          {params.type === "parent" &&
+          <Pagination
+            total={totalProducts}
+            responsive={true}
+            defaultCurrent={1}
+            onChange={handlePagination}
+            defaultPageSize={20}
+          />}
         </div>
       </section>
     </>

@@ -43,7 +43,8 @@ export function* UPDATE_PRODUCT({payload}) {
   const success = yield call(jwt.updateProduct, payload)
   if (success.status) {
     yield reduxStore.dispatch({
-      type: 'product/ALL_PRODUCTS'
+      type: 'product/ALL_PRODUCTS',
+      payload:{limit:20, offset:0}
     })
     message.success({
       content: success.message,
@@ -73,7 +74,8 @@ export function* DELETE_PRODUCT({payload}) {
   const success = yield call(jwt.deleteProduct, payload)
   if (success.status) {
     yield reduxStore.dispatch({
-      type: 'product/ALL_PRODUCTS'
+      type: 'product/ALL_PRODUCTS',
+      payload:{limit:20, offset:0}
     })
     message.success({
       content: success.message,
@@ -103,7 +105,8 @@ export function* CREATE_PRODUCT({payload}) {
   const success = yield call(jwt.createProduct, payload)
   if (success.status) {
     yield reduxStore.dispatch({
-      type: 'product/ALL_PRODUCTS'
+      type: 'product/ALL_PRODUCTS',
+      payload:{limit:20, offset:0}
     })
     message.success({
       content: success.message,

@@ -37,7 +37,9 @@ const tailLayout = {
 const getHtml = editorState => draftToHtml(convertToRaw(editorState.getCurrentContent()));
 function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, privateLabelling, socialResponsibility}) {
   const [form] = Form.useForm();
-  const [forms] = Form.useForm();
+  const [editor1, setEditor1] = useState("")
+  const [editor2, setEditor2] = useState("")
+  const [editor3, setEditor3] = useState("")
   const [editor, setEditor] = useState("")
   const [editWhoWeAre, setEditWhoWeAre] = useState(false)
   const [editLabelling, setEditLabelling] = useState(false)
@@ -53,6 +55,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
     fd.append('text', value.text)
     fd.append('caption', value.caption)
     fd.append('image', file);
+    fd.append('headerImagePath', value.imagePath);
 		dispatch({
       type:"setting/UPDATE_HEADER",
       payload:fd
@@ -63,8 +66,8 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
   const onFinishUpdateAbout = (value) =>{
     const fd = new FormData();
     fd.append('id', value.id)
-    fd.append('mission', value.mission)
-    fd.append('vision', value.vision)
+    fd.append('mission', getHtml(editor1))
+    fd.append('vision', "")
     fd.append('about', value.about)
     fd.append('aboutImagePath', value.aboutImagePath)
     fd.append('image', file);
@@ -114,7 +117,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
     fd.append('id', value.id)
     fd.append('imageUrl', value.imageUrl)
     fd.append('description', value.description)
-    fd.append('private_label', getHtml(editor))
+    fd.append('private_label', getHtml(editor2))
     fd.append('image', file);
 		dispatch({
       type:"setting/UPDATE_LABELLING",
@@ -128,7 +131,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
     fd.append('id', value.id)
     fd.append('imageUrl', value.imageUrl)
     fd.append('description', value.description)
-    fd.append('social_res', getHtml(editor))
+    fd.append('social_res', getHtml(editor3))
     fd.append('image', file);
 		dispatch({
       type:"setting/UPDATE_RESPONSIBILITY",
@@ -143,6 +146,12 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
 
   const handleEditAboutState = (value) =>{
     setEditAboutSetting(value)
+    if(about.mission){
+      const blocksFromHtml = htmlToDraft(about.mission);
+      const { contentBlocks, entityMap } = blocksFromHtml;
+      const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+      setEditor1(EditorState.createWithContent(contentState));
+    }
   }
 
   const handleEditWhoWeAreState = (state) =>{
@@ -161,7 +170,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
       const blocksFromHtml = htmlToDraft(privateLabelling.private_labelling);
       const { contentBlocks, entityMap } = blocksFromHtml;
       const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
-      setEditor(EditorState.createWithContent(contentState));
+      setEditor2(EditorState.createWithContent(contentState));
     }
   }
 
@@ -171,7 +180,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
       const blocksFromHtml = htmlToDraft(socialResponsibility.social_res);
       const { contentBlocks, entityMap } = blocksFromHtml;
       const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
-      setEditor(EditorState.createWithContent(contentState));
+      setEditor3(EditorState.createWithContent(contentState));
     }
   }
 
@@ -181,6 +190,15 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
 
   const onEditorStateChange = editorState => {
     setEditor(editorState);
+  };
+  const onEditorAboutStateChange = editorState => {
+    setEditor1(editorState);
+  };
+  const onEditorLabelStateChange = editorState => {
+    setEditor2(editorState);
+  };
+  const onEditorResponsibiltyStateChange = editorState => {
+    setEditor3(editorState);
   };
 
   const getBase64 = (img, callback) => {
@@ -229,8 +247,8 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
               {editHeaderSetting?
               <Form
                 onFinish={onFinishUpdateHeader}
-                form={form} {...layout}
-                initialValues={{caption:header.headerCaption, text:header.headerText, id:"1"}}>
+                {...layout}
+                initialValues={{caption:header.headerCaption, text:header.headerText, id:"1", imagePath:header.headerImagePath}}>
                 <Form.Item name="caption" label="Header Caption">
                   <Input /> 
                 </Form.Item>
@@ -238,6 +256,9 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                   <Input />
                 </Form.Item>
                 <Form.Item name="id" hidden>
+                  <Input />
+                </Form.Item>
+                <Form.Item name="imagePath" hidden>
                   <Input />
                 </Form.Item>
                 <Form.Item label="Upload Image">
@@ -256,7 +277,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                   <h3 className="text-blueGray-700 text-xl font-bold">Header Caption</h3>
                   <p className="text-blueGray-700 text-sm">{header.headerCaption}</p>
                   <h3 className="text-blueGray-700 text-xl font-bold">Header Text</h3>
-                  <p className="text-blueGray-700 text-sm">{header.headerText}</p>
+                  <p className="text-blueGray-700 text-sm capitalize">{header.headerText}</p>
               </div>}
             </Card>
             <Card
@@ -276,17 +297,24 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
               {editAboutSetting?
               <Form
                 onFinish={onFinishUpdateAbout}
-                form={form} {...layout}
                 initialValues={{about:about.aboutUs, mission:about.mission, vision:about.vision, aboutImagePath:about.aboutImagePath, id:"1"}}>
                 <Form.Item name="about" label="About Us">
                   <Input.TextArea /> 
                 </Form.Item>
-                <Form.Item name="mission" label="Our Value">
-                  <Input.TextArea />
+                <Form.Item name="mission" label="Purpose and Value">
+                  <Editor
+                    editorState={editor1}
+                    editorClassName="px-3 border border-gray-1"
+                    editorStyle={{
+                        height: 200,
+                        overflow:'auto',
+                    }}
+                    onEditorStateChange={onEditorAboutStateChange}
+                  />
                 </Form.Item>
-                <Form.Item name="vision" label="Our Purpose">
+                {/* <Form.Item name="vision" label="Our Purpose">
                   <Input.TextArea />
-                </Form.Item>
+                </Form.Item> */}
                 <Form.Item name="aboutImagePath" hidden>
                   <Input />
                 </Form.Item>
@@ -298,7 +326,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                     <Button icon={<InboxOutlined />}>Upload Image</Button>
                   </Upload>
                 </Form.Item>
-                <Form.Item {...tailLayout}>
+                <Form.Item >
                   <Button type="primary" htmlType="submit" loading={loading}>
                     Update
                   </Button>
@@ -306,12 +334,9 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
               </Form>:
               <div>
                   <img alt="example" style={{height:200}} src={`${imageUrl}settings/${about.aboutImagePath}`}/>
-                  <h3 className="text-blueGray-700 text-xl font-bold">About Us caption</h3>
+                  <h3 className="text-blueGray-700 text-xl font-bold mt-5">About Us caption</h3>
                   <p className="text-blueGray-700 text-sm">{about.aboutUs}</p>
-                  <h3 className="text-blueGray-700 text-xl font-bold">Our Value</h3>
-                  <p className="text-blueGray-700 text-sm">{about.mission}</p>
-                  <h3 className="text-blueGray-700 text-xl font-bold">Our Purpose</h3>
-                  <p className="text-blueGray-700 text-sm">{about.vision}</p>
+                  <div className="text-blueGray-700 text-sm mt-5" dangerouslySetInnerHTML={{__html: about.mission}}/>
               </div>}
             </Card>
             
@@ -333,8 +358,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
               {editWhoWeAre?
               <Form
                 onFinish={onFinishUpdateWhoWeAre}
-                form={form}
-                initialValues={{id:whoWeAre.id, imageUrl:whoWeAre.imageUrl}}>
+                initialValues={{id:whoWeAre.id, imageUrl:whoWeAre.who_we_are_image}}>
                 <Form.Item name="who_we_are" label="Who We Are">
                   <Editor
                     editorState={editor}
@@ -357,7 +381,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                     <Button icon={<InboxOutlined />}>Upload Image</Button>
                   </Upload>
                 </Form.Item>
-                <Form.Item {...tailLayout}>
+                <Form.Item>
                   <Button type="primary" htmlType="submit" loading={loading}>
                     Update
                   </Button>
@@ -387,17 +411,16 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
               {editLabelling?
               <Form
                 onFinish={onFinishUpdateLabelling}
-                form={form}
                 initialValues={{id:privateLabelling.id, description:privateLabelling.private_labelling_description, imageUrl:privateLabelling.private_labelling_image}}>
                 <Form.Item name="private_label" label="Private Label">
                   <Editor
-                    editorState={editor}
+                    editorState={editor2}
                     editorClassName="px-3 border border-gray-1"
                     editorStyle={{
                         height: 200,
                         overflow:'auto',
                     }}
-                    onEditorStateChange={onEditorStateChange}
+                    onEditorStateChange={onEditorLabelStateChange}
                   />
                 </Form.Item>
                 <Form.Item name="description" label="Short description">
@@ -414,7 +437,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                     <Button icon={<InboxOutlined />}>Upload Image</Button>
                   </Upload>
                 </Form.Item>
-                <Form.Item {...tailLayout}>
+                <Form.Item>
                   <Button type="primary" htmlType="submit" loading={loading}>
                     Update
                   </Button>
@@ -447,17 +470,16 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
               {editResponsibility?
               <Form
                 onFinish={onFinishUpdateResponsibility}
-                form={forms}
                 initialValues={{id:socialResponsibility.id, description:socialResponsibility.social_res_description, imageUrl:socialResponsibility.social_res_image}}>
                 <Form.Item name="social_res" label="Social Responsibility">
                   <Editor
-                    editorState={editor}
+                    editorState={editor3}
                     editorClassName="px-3 border border-gray-1"
                     editorStyle={{
                         height: 200,
                         overflow:'auto',
                     }}
-                    onEditorStateChange={onEditorStateChange}
+                    onEditorStateChange={onEditorResponsibiltyStateChange}
                   />
                 </Form.Item>
                 <Form.Item name="description" label="Short description">
@@ -474,7 +496,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                     <Button icon={<InboxOutlined />}>Upload Image</Button>
                   </Upload>
                 </Form.Item>
-                <Form.Item {...tailLayout}>
+                <Form.Item >
                   <Button type="primary" htmlType="submit" loading={loading}>
                     Update
                   </Button>
@@ -542,7 +564,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                     <Button icon={<InboxOutlined />}>Upload Image</Button>
                   </Upload>
                 </Form.Item>
-                <Form.Item {...tailLayout}>
+                <Form.Item >
                   <Button type="primary" htmlType="submit" loading={loading}>
                     Update
                   </Button>

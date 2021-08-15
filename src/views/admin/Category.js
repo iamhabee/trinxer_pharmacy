@@ -31,6 +31,7 @@ function CategoryPage({dispatch, categories, parentCategories, loading}) {
   const [addModal, setAddModal] = useState(false)
   const [editCategory, setEditCategory] = useState(false)
   const [createParentCat, setCreateParentCat] = useState(true)
+  const [createParentCatEdit, setCreateParentCatEdit] = useState(false)
   const [form] = Form.useForm();
   const [forms] = Form.useForm();
   const {Option} = Select
@@ -53,24 +54,31 @@ function CategoryPage({dispatch, categories, parentCategories, loading}) {
       payload:val
     })
     setAddModal(false)
+    setCreateParentCat(true)
     form.resetFields()
   }
 
   const onFinishEdit = (val) => {
+    const value = {
+      name: val.name,
+      description: val.description,
+      categoryId: val.categoryId,
+      parentCategoryId: val.parentCategoryId? val.parentCategoryId:null,
+    }
     dispatch({
       type:'category/UPDATE_CATEGORY',
-      payload:val
+      payload:value
     })
     setEditCategory(false)
+    setCreateParentCatEdit(false)
     forms.resetFields()
   }
 
   const handleEdit = (value) =>{
     setEditCategory(true)
+    console.log(value.parentCategoryId)
     if(value.parentCategoryId) {
-      setCreateParentCat(false)
-    }else{
-      setCreateParentCat(true)
+      setCreateParentCatEdit(true)
     }
     forms.setFieldsValue({
       name: value.name,
@@ -114,6 +122,10 @@ function CategoryPage({dispatch, categories, parentCategories, loading}) {
     setCreateParentCat(val)
   }
 
+  const handleChangeEdit = (val) =>{
+    setCreateParentCatEdit(val)
+  }
+
 
   return (
     <>
@@ -131,7 +143,7 @@ function CategoryPage({dispatch, categories, parentCategories, loading}) {
                   Create New Category
                 </button>
               </div>
-              <Table columns={columns} dataSource={categories} pagination={false} rowKey="categoryId" />
+              <Table columns={columns} loading={loading} dataSource={categories} pagination={false} rowKey="categoryId" />
             </div>
           </div>
         </div>
@@ -194,7 +206,7 @@ function CategoryPage({dispatch, categories, parentCategories, loading}) {
                 <Form.Item name="categoryId" hidden>
                   <Input />
                 </Form.Item>
-                <Form.Item label="Parent Category" hidden={createParentCat} name="parentCategoryId">
+                <Form.Item label="Parent Category" hidden={createParentCatEdit} name="parentCategoryId">
                   <Select
                     placeholder="Select Parent Category"
                     allowClear
@@ -203,7 +215,7 @@ function CategoryPage({dispatch, categories, parentCategories, loading}) {
                   </Select>
                 </Form.Item>
                 <Form.Item label="Create Sub Category">
-                  <Switch defaultChecked={createParentCat} onChange={()=>handleChange(!createParentCat)} />
+                  <Switch defaultChecked={!createParentCatEdit} onChange={()=>handleChangeEdit(!createParentCatEdit)} />
                 </Form.Item>
                 <Form.Item {...tailLayout}>
                   <Button type="primary" htmlType="submit" loading={loading}>

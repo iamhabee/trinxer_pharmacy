@@ -1,23 +1,9 @@
 import { all, takeEvery, put, call } from 'redux-saga/effects'
-import * as jwts from 'services/jwt'
+import * as jwt from 'services/jwt'
 import { message } from 'antd'
 import { store as reduxStore  } from 'index'
 import actions from './actions'
 
-const jwt = {
-    getHeader: jwts.getHeader,
-    getContact: jwts.getContact,
-    getAbout: jwts.getAbout,
-    getWhoWeAre: jwts.getWhoWeAre,
-    getLabelling: jwts.getLabelling,
-    getResponsibility: jwts.getResponsibility,
-    updateAbout: jwts.updateAbout,
-    updateContact: jwts.updateContact,
-    updateHeader: jwts.updateHeader,
-    updateWhoWeAre: jwts.updateWhoWeAre,
-    updateResponsibility: jwts.updateResponsibility,
-    updateLabelling: jwts.updateLabelling,
-}
 
 export function* GET_ABOUT() {
   yield put({

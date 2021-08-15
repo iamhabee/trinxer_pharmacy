@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { imageUrl } from "services/axios";
-import { Result, Button, Skeleton} from 'antd';
+import { Result, Button, Skeleton, Pagination} from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
 
@@ -9,10 +9,12 @@ import { Link } from "react-router-dom";
 export default function ProductsPage() {
   const dispatch = useDispatch()
   const data = useSelector(state => state.site)
-  const {products, loading} = data
+  const {products, loading, totalProducts} = data
+  console.log(totalProducts)
   useEffect(() => {
     dispatch({
-      type:"site/PRODUCTS"
+      type:"site/PRODUCTS",
+      payload:{limit:20, offset:0}
     })
     dispatch({
       type:"site/ABOUT"
@@ -23,6 +25,14 @@ export default function ProductsPage() {
     })
     // eslint-disable-next-line
   }, [])
+
+  const handlePagination = (page, pageSize) =>{
+    dispatch({
+      type:"site/PRODUCTS",
+      payload:{limit:20, offset:(page-1 )* 20}
+    })
+  }
+
   return (
     <>
       <section className="pb-20 bg-blueGray-200">
@@ -51,6 +61,13 @@ export default function ProductsPage() {
               </Link>
             </div>))}
           </div>
+          <Pagination
+            total={totalProducts}
+            responsive={true}
+            defaultCurrent={1}
+            onChange={handlePagination}
+            defaultPageSize={20}
+          />
         </div>
       </section>
     </>

@@ -15,7 +15,8 @@ const initialState = {
   categoriesProduct:[],
   categoryName:"",
   categoryDescription:"",
-  categories:[]
+  categories:[],
+  totalProducts:0
 }
 
 export default function siteReducer(state = initialState, action) {

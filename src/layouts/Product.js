@@ -30,7 +30,7 @@ export default function Product() {
         
           {/* <div className="px-4 md:px-10 mx-auto w-full lg:w-9/12 -m-24"> */}
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap items-center ">
+          <div className="flex flex-wrap">
             <div className="w-full md:w-4/12 lg:w-4/12 px-4">
               <ProductSidebar />
             </div>

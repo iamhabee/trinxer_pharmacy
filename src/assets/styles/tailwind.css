@@ -2466,6 +2466,10 @@ select {
   text-transform: uppercase;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 .no-underline {
   text-decoration: none;
 }
