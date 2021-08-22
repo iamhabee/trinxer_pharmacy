@@ -66,7 +66,6 @@ function ProductPage({dispatch, categories, products, loading, totalProduct}) {
   }
 
   const onFinishEdit = (val) => {
-    console.log(pdfFile)
     const fd = new FormData();
     fd.append('detail', getHtml(editor))
     fd.append('name', val.name)
@@ -75,7 +74,7 @@ function ProductPage({dispatch, categories, products, loading, totalProduct}) {
     fd.append('productId', val.productId)
     fd.append('image', file);
     fd.append('imageUrl', val.imageUrl);
-    fd.append('file', pdfFile);
+    fd.append('pdfFile', pdfFile);
     fd.append('fileUrl', val.fileUrl);
     dispatch({
       type:'product/UPDATE_PRODUCT',

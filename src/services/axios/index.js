@@ -4,7 +4,7 @@ import { history } from 'index'
 // import { notification } from 'antd'
 
 export const imageUrl = "https://trinxer.tk/images/"
-export const pdfUrl = "https://trinxer.tk/pdf/"
+export const pdfUrl = "https://trinxer.tk/files/"
 
 export const numberFormat = (value) =>
   new Intl.NumberFormat("en-NG", {

@@ -117,6 +117,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
     fd.append('id', value.id)
     fd.append('imageUrl', value.imageUrl)
     fd.append('description', value.description)
+    fd.append('private_video_url', value.private_video_url)
     fd.append('private_label', getHtml(editor2))
     fd.append('image', file);
 		dispatch({
@@ -411,7 +412,7 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
               {editLabelling?
               <Form
                 onFinish={onFinishUpdateLabelling}
-                initialValues={{id:privateLabelling.id, description:privateLabelling.private_labelling_description, imageUrl:privateLabelling.private_labelling_image}}>
+                initialValues={{id:privateLabelling.id, description:privateLabelling.private_labelling_description, imageUrl:privateLabelling.private_labelling_image, private_video_url:privateLabelling.private_video_url}}>
                 <Form.Item name="private_label" label="Private Label">
                   <Editor
                     editorState={editor2}
@@ -424,6 +425,9 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                   />
                 </Form.Item>
                 <Form.Item name="description" label="Short description">
+                  <Input />
+                </Form.Item>
+                <Form.Item name="private_video_url" label="Video Url">
                   <Input />
                 </Form.Item>
                 <Form.Item name="imageUrl" hidden>
@@ -444,7 +448,8 @@ function SettingsCard({dispatch, about, header, contact, loading, whoWeAre, priv
                 </Form.Item>
               </Form>:
               <div>
-                <img alt="image" style={{height:200}} src={`${imageUrl}settings/${privateLabelling.private_labelling_image}`}/>
+                <img alt="image" style={{height:200}} src={`${imageUrl}settings/${privateLabelling.private_labelling_image}`} className="mb-5"/>
+                <iframe width="250" height="200" src={`https://www.youtube.com/embed/${privateLabelling.private_video_url}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 <h3 className="text-blueGray-700 text-xl font-bold">Short Description</h3>
                 <p className="text-blueGray-700 text-sm">{privateLabelling.private_labelling_description}</p>
                 <h3 className="text-blueGray-700 text-xl font-bold">Private Labelling </h3>

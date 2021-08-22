@@ -49,7 +49,7 @@ export default function SingleProduct() {
                 <div className="mt-5" dangerouslySetInnerHTML={{__html: singleProduct.detail}} />
               </div>
               {singleProduct.fileUrl &&
-              <a class="flex p-5" target="_blank" href={`${pdfUrl}products/${singleProduct.fileUrl}`} data-slimstat="3">
+              <a className="flex p-5 items-center" target="_blank" href={`${pdfUrl}products/${singleProduct.fileUrl}`} data-slimstat="3">
                 <div style={{width:50, height:50, marginRight:5}}>
                   <img src="/images/pdf.png" alt="" />
                 </div>Download Attachment
